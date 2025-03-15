@@ -1,0 +1,50 @@
+div.container {
+  /* border: green 4px dotted; */
+  position: relative;
+  padding: 20px;
+}
+
+div.container h2 {
+  text-align: center;
+}
+
+div.container form {
+  max-width: 400px;
+  margin: auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 10px;
+  border: 1px black solid;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+div.container input,
+div.container textarea {
+  width: 99%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+div.container input:focus,
+div.container textarea:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+label.textarea {
+  font-size: 14px;
+  color: #555;
+}
+
+div.container textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+label.ads {
+  text-align: center;
+}
