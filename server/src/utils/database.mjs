@@ -1,3 +1,5 @@
+//Using mysql structured data
+
 import dotenv from "dotenv";
 import mysql from "mysql2";
 
