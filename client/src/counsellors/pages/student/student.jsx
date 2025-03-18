@@ -16,26 +16,10 @@ export default function Student() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const checkDuplicate = async () => {
-    try {
-      const response = await axios.get(
-        `http://localhost:5000/api/check-form?email=${formData.email}`
-      );
-      return response.data.exists; // Returns true if the email already exists
-    } catch (error) {
-      return false; // Assume it's new if there's an error
-    }
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!formData.name || !formData.email || !formData.message) {
       toast.error("All fields are required!");
-      return;
-    }
-    if (await checkDuplicate()) {
-      toast.error("This form has already been submitted!");
-      setLoading(false);
       return;
     }
     setLoading(true); // Show loading state
