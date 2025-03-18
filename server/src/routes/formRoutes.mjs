@@ -25,4 +25,13 @@ router.post("/api/submit-form", async (req, res) => {
   }
 });
 
+router.get("/api/submit-form", async (req, res) => {
+  try {
+    const formData = await FormData.find(); // Fetch all documents
+    res.status(200).json(formData);
+  } catch (error) {
+    res.status(500).json({ error: "Error fetching form data" });
+  }
+});
+
 export default router;
