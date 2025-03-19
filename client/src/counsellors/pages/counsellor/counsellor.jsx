@@ -6,11 +6,11 @@ import {
   faCircleChevronDown,
   faCircleChevronUp,
 } from "@fortawesome/free-solid-svg-icons";
-import { width } from "@fortawesome/free-brands-svg-icons/fa42Group";
 
 export default function Counsellor() {
-  const [expandedItems, setExpandedItems] = useState({}); // Stores which items are expanded
+  const [expandedItems, setExpandedItems] = useState({});
   const [requests, setRequests] = useState([]);
+  const [responses, setResponses] = useState({});
 
   // Fetch form data from API
   useEffect(() => {
@@ -22,15 +22,49 @@ export default function Counsellor() {
 
   const handleView = (id) => {
     setExpandedItems((prev) => ({
-      ...prev,
-      [id]: !prev[id], // Toggle the clicked item only
+      ...Object.keys(prev).reduce((acc, key) => {
+        acc[key] = false;
+        return acc;
+      }, {}), // Close all other expanded divs
+      [id]: !prev[id],
     }));
   };
 
-  const buttonStyle = {
-    position: "absolute",
-    top: "10px",
-    right: "40px",
+  const handleResponseChange = (id, value) => {
+    setResponses((prev) => ({
+      ...prev,
+      [id]: value,
+    }));
+  };
+
+  const handleResponseSubmit = (id) => {
+    const responseMessage = responses[id] || "";
+
+    if (!responseMessage.trim()) {
+      alert("Response cannot be empty!");
+      return;
+    }
+
+    fetch("http://localhost:5000/api/respond", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ studentId: id, response: responseMessage }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        alert("Response sent successfully!");
+        setResponses((prev) => ({ ...prev, [id]: "" })); // Clear the response field
+        setRequests((prev) =>
+          prev.map((req) =>
+            req._id === id
+              ? { ...req, responses: [...(req.responses || []), responseMessage] }
+              : req
+          )
+        );
+      })
+      .catch((error) => console.error("Error sending response:", error));
   };
 
   return (
@@ -39,48 +73,67 @@ export default function Counsellor() {
         name="Feeds"
         notify={true}
         value={0}
-        style={{ ...buttonStyle, right: "150px" }}
+        style={{ position: "absolute", top: "10px", right: "150px" }}
       />
       <DynamicButton
         name="Request"
-        style={buttonStyle}
+        style={{ position: "absolute", top: "10px", right: "40px" }}
         notify={true}
-        click={() => alert("Request")}
-        value={4}
+        value={requests.length}
       />
       <h2 style={{ textAlign: "center" }}>Student Requests</h2>
 
-      {requests.map((request, id) => (
+      {requests.map((request) => (
         <div
-          key={id}
-          className={
-            expandedItems[id] ? "studentRequestV2" : "studentRequestV1"
-          }
+          key={request._id}
+          className={expandedItems[request._id] ? "studentRequestV2" : "studentRequestV1"}
         >
           <FontAwesomeIcon
             className="dropDown"
-            icon={expandedItems[id] ? faCircleChevronUp : faCircleChevronDown}
-            onClick={() => handleView(id)}
+            icon={expandedItems[request._id] ? faCircleChevronUp : faCircleChevronDown}
+            onClick={() => handleView(request._id)}
           />
           <h4>Name: {request.name}</h4>
           <p>{request.email}</p>
           <p>{request.message}</p>
-          <div className="respondContainer">
-            <form className="response">
-              <p>Give a response:</p>
-              <textarea></textarea>
-              <DynamicButton
-                name="Send"
-                style={{
-                  margin: "10px auto",
-                  width: "200px",
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
+
+          {expandedItems[request._id] && (
+            <div className="respondContainer">
+              <h5>Previous Responses:</h5>
+              <ul>
+                {request.responses && request.responses.length > 0 ? (
+                  request.responses.map((res, index) => <li key={index}>{res}</li>)
+                ) : (
+                  <p>No responses yet</p>
+                )}
+              </ul>
+
+              <form
+                className="response"
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  handleResponseSubmit(request._id);
                 }}
-              />
-            </form>
-          </div>
+              >
+                <p>Give a response:</p>
+                <textarea
+                  value={responses[request._id] || ""}
+                  onChange={(e) => handleResponseChange(request._id, e.target.value)}
+                ></textarea>
+                <DynamicButton
+                  name="Send"
+                  type="submit"
+                  style={{
+                    margin: "10px auto",
+                    width: "200px",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                />
+              </form>
+            </div>
+          )}
         </div>
       ))}
     </div>

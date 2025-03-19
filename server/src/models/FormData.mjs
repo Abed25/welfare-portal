@@ -6,6 +6,7 @@ const formSchema = new Schema({
   name: String,
   email: String,
   message: String,
+  responses: { type: [String], default: [] }, // Array of responses
 });
 
 export const FormData = model("FormData", formSchema); // ✅ Export correctly
