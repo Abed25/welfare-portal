@@ -12,8 +12,31 @@ h1.landing {
 div.welcoming,
 div.auth {
   text-align: center;
-  border: red solid 1px;
+  /* border: red solid 1px; */
   width: 49%;
-  float: left;
+  float: right;
   height: 99vh;
+}
+/* div.auth {
+  background-image: url("/src/assets/socialwelfare.jpg");
+  background-repeat: no-repeat;
+  background-position: 100px 60px;
+} */
+
+div.welcoming {
+  background-color: rgba(0, 0, 255, 0.274);
+  position: absolute;
+  top: 0;
+  height: 100vh;
+  position: fixed;
+}
+
+section.view1 {
+  margin: 150px 20px;
+  background-color: transparent;
+  border: black 2px solid;
+  height: 380px;
+  font-size: 40px;
+  position: relative;
+  left: 60px;
 }
