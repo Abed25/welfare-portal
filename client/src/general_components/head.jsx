@@ -7,14 +7,9 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function Head() {
-  const { user, role } = useAuth();
+  const { user, role, logout } = useAuth();
   const [showContact, setShowContact] = useState(false);
   const navigate = useNavigate();
-
-  const handleLogout = () => {
-    localStorage.clear();
-    window.location.reload();
-  };
 
   const ContactDetails = () => {
     return (
@@ -24,7 +19,7 @@ export default function Head() {
         </h4>
         <p>Email: {user.email}</p>
         <p>Role: {role}</p>
-        <button onClick={handleLogout}>Logout</button>
+        <button onClick={logout}>Logout</button>
       </div>
     );
   };

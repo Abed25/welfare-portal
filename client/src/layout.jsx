@@ -26,23 +26,40 @@ export default function Layout() {
           <Route path="/signup" element={<SignUp />} />
           <Route path="*" element={<NotFound />} />
 
-          {/* Protected Routes with SubHeader & SubFooter */}
+          {/* Protected Routes */}
           <Route
             element={
-              <ProtectedRoute>
+              <ProtectedRoute allowedRoles={["student", "counsellor"]}>
                 <ProtectedLayout />
               </ProtectedRoute>
             }
           >
             <Route path="/home" element={<Home />} />
-            <Route
-              path="/counsellor-dashboard"
-              element={<CounsellorDashboard />}
-            />
-            <Route path="/student-dashboard" element={<StudentDashboard />} />
-            <Route path="/test" element={<Test />} />
           </Route>
+
+          {/* Counsellor-only Routes */}
+          <Route
+            path="/counsellor-dashboard"
+            element={
+              <ProtectedRoute allowedRoles={["counsellor"]}>
+                <CounsellorDashboard />
+              </ProtectedRoute>
+            }
+          />
+
+          {/* Student-only Routes */}
+          <Route
+            path="/student-dashboard"
+            element={
+              <ProtectedRoute allowedRoles={["student"]}>
+                <StudentDashboard />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route path="/test" element={<Test />} />
         </Routes>
+        ;
       </div>
       <Footer />
     </div>

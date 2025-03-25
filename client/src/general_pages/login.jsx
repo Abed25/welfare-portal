@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useAuth } from "../context/AuthProvider";
 import { getAuth, sendPasswordResetEmail } from "firebase/auth";
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "../../firebase";
 import { Link, useNavigate } from "react-router-dom";
 import "../general_styles/login.css";
 import { ToastContainer, toast } from "react-toastify";
@@ -15,19 +17,23 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await login(email, password);
-      toast.success("Login successful!");
+      const userCredential = await login(email, password);
+      const user = userCredential.user;
 
-      // Wait for role update
-      setTimeout(() => {
-        if (role === "student") {
-          navigate("/student-dashboard");
-        } else if (role === "counsellor") {
-          navigate("/counsellor-dashboard");
-        } else {
-          navigate("/home");
-        }
-      }, 2000); // Increased delay to allow state update
+      // Fetch role directly after login
+      const userDoc = await getDoc(doc(db, "users", user.uid));
+      const userRole = userDoc.exists() ? userDoc.data().role : null;
+
+      alert("Login successful!");
+
+      // Navigate based on role
+      if (userRole === "student") {
+        navigate("/student-dashboard");
+      } else if (userRole === "counsellor") {
+        navigate("/counsellor-dashboard");
+      } else {
+        navigate("/home");
+      }
     } catch (error) {
       toast.error("Login failed: " + error.message);
     }

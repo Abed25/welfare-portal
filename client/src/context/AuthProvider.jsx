@@ -56,9 +56,23 @@ export const AuthProvider = ({ children }) => {
     return userCredential;
   };
 
+  const logout = () => {
+    const auth = getAuth();
+    auth
+      .signOut()
+      .then(() => {
+        localStorage.clear();
+        window.location.reload();
+      })
+      .catch((error) => {
+        console.error("Logout Error:", error);
+        toast.error("Logout failed. Try again!");
+      });
+  };
+
   return (
     <>
-      <AuthContext.Provider value={{ user, login, role }}>
+      <AuthContext.Provider value={{ user, login, logout, role }}>
         {children}
       </AuthContext.Provider>
       <ToastContainer position="top-center" autoClose={3000} />
