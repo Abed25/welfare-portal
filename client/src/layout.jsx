@@ -11,6 +11,9 @@ import SignUp from "./general_pages/register";
 import ProtectedRoute from "./general_components/ProtectedRoute";
 import ProtectedLayout from "./general_components/protectedLayout";
 import Test from "./general_pages/Test";
+import CounsellorDashboard from "./general_pages/counsellorDashboard";
+import StudentDashboard from "./general_pages/studentDashboard";
+import Home from "./general_pages/Home";
 
 export default function Layout() {
   return (
@@ -31,7 +34,12 @@ export default function Layout() {
               </ProtectedRoute>
             }
           >
-            <Route path="/home" element={<Counselling_Layout />} />
+            <Route path="/home" element={<Home />} />
+            <Route
+              path="/counsellor-dashboard"
+              element={<CounsellorDashboard />}
+            />
+            <Route path="/student-dashboard" element={<StudentDashboard />} />
             <Route path="/test" element={<Test />} />
           </Route>
         </Routes>

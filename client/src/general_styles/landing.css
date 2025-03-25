@@ -12,31 +12,46 @@ h1.landing {
 div.welcoming,
 div.auth {
   text-align: center;
-  /* border: red solid 1px; */
-  width: 49%;
-  float: right;
-  height: 99vh;
+  width: 50%;
+  height: 90vh;
 }
-/* div.auth {
-  background-image: url("/src/assets/socialwelfare.jpg");
+div.auth {
+  /* background-image: url("/src/assets/background.jpg");
   background-repeat: no-repeat;
-  background-position: 100px 60px;
-} */
+  background-size: cover;
+  background-position: center; */
+  float: right;
+}
 
 div.welcoming {
   background-color: rgba(0, 0, 255, 0.274);
-  position: absolute;
   top: 0;
   height: 100vh;
   position: fixed;
+  z-index: 0;
+  float: left;
 }
 
+section.view1,
+section.view2 {
+  height: auto;
+  position: relative;
+  margin: 70px 10px;
+}
 section.view1 {
   margin: 150px 20px;
+  background-color: rgba(0, 0, 255, 0.274);
   background-color: transparent;
   border: black 2px solid;
-  height: 380px;
   font-size: 40px;
-  position: relative;
   left: 60px;
+  z-index: -1;
+}
+section.view2 {
+  z-index: -3;
+  border: green 1px solid;
+  background-color: blue;
+  color: aliceblue;
+  height: auto;
+  margin-top: 100px;
 }
