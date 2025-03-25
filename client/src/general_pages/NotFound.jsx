@@ -3,24 +3,22 @@ import { NavLink } from "react-router-dom";
 import { useAuth } from "../context/AuthProvider";
 
 const NotFound = () => {
-  const { user } = useAuth();
+  const { user, role } = useAuth(); // Extract role separately
 
   return (
     <div style={{ textAlign: "center" }}>
-      {console.log({ user })}
       <h2>404 - Page Not Found</h2>
       <p>The page you are looking for does not exist.</p>
       <NavLink
         to={
-          user?.role === "student"
+          role === "student"
             ? "/student-dashboard"
-            : user?.role === "counsellor"
+            : role === "counsellor"
             ? "/counsellor-dashboard"
             : "/"
         }
       >
-        {" "}
-        Go back Home{" "}
+        Go back Home
       </NavLink>
     </div>
   );
