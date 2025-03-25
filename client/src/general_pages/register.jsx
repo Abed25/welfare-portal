@@ -1,25 +1,41 @@
 import { useState } from "react";
-import { auth } from "../../firebase";
+import { auth, db } from "../../firebase"; // Import Firestore
 import { createUserWithEmailAndPassword } from "firebase/auth";
+import { setDoc, doc } from "firebase/firestore"; // Firestore functions
 import { Link, useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const SignUp = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [role, setRole] = useState("student"); // Default role
   const navigate = useNavigate();
 
   const handleSignUp = async () => {
     if (password !== confirmPassword) {
-      alert("Passwords do not match!");
+      toast.error("Passwords do not match!");
       return;
     }
     try {
-      await createUserWithEmailAndPassword(auth, email, password);
-      alert("User created successfully!");
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      const user = userCredential.user;
+
+      // Store user role in Firestore
+      await setDoc(doc(db, "users", user.uid), {
+        email,
+        role, // Store the selected role
+      });
+
+      toast.success(`User registered successfully as ${role}!`);
       navigate("/login"); // Redirect to login after signup
     } catch (error) {
-      alert(`Error signing up: ${error.message}`);
+      toast.warn(`Error signing up: ${error.message}`);
     }
   };
 
@@ -49,12 +65,21 @@ const SignUp = () => {
         style={{ marginTop: "10px" }}
         required
       />
+      <select
+        value={role}
+        onChange={(e) => setRole(e.target.value)}
+        style={{ marginTop: "10px", width: "100%" }}
+      >
+        <option value="student">Student</option>
+        <option value="counsellor">Counsellor</option>
+      </select>
       <button onClick={handleSignUp} style={{ width: "90%" }}>
         Sign Up
       </button>
       <p>
         Already have an account? <Link to="/login">Login</Link>
       </p>
+      <ToastContainer position="top-center" autoClose={3000} />
     </div>
   );
 };

@@ -19,7 +19,8 @@ div.login form {
   flex-direction: column;
   gap: 10px;
 }
-div.login input {
+div.login input,
+div.login select {
   width: 90%;
   padding: 10px;
   border: 1px solid #ccc;
