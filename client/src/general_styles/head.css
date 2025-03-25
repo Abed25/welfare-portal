@@ -1,7 +1,7 @@
 div.head {
   background-color: #655bfa;
   color: white;
-  text-align: center;
+  /* text-align: center; */
   padding: 15px;
   font-size: 20px;
   font-weight: bold;
@@ -9,4 +9,31 @@ div.head {
   top: 0;
   width: 100%;
   z-index: 1000;
+}
+
+div.contactContainer {
+  width: auto;
+  position: absolute;
+  height: auto;
+  top: 12px;
+  right: 60px;
+}
+div.contact {
+  position: absolute;
+  font-size: 16px;
+  padding: 2px 30px 10px 10px;
+  background-color: #655bfa;
+  top: 40px;
+  right: -50px;
+}
+
+.userIcon,
+.userIconActive {
+  font-size: 30px;
+  text-align: center;
+  padding: 2px;
+}
+
+.userIconActive {
+  border: black 2px dotted;
 }
