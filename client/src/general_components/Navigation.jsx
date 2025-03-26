@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import "../general_styles/Navigation.css";
 import HamburgerMenu from "./HamburgerMenu";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser } from "@fortawesome/free-solid-svg-icons";
 
 export default function Nav(props) {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -12,7 +10,7 @@ export default function Nav(props) {
     setMenuOpen(!menuOpen);
   };
   const studentFunctionalities = [
-    "Couselling",
+    "Counselling",
     "Marketplace",
     "ToDO",
     "Claim points",
@@ -24,7 +22,7 @@ export default function Nav(props) {
     <div className="nav">
       <ul className={menuOpen ? "view" : null}>
         {studentFunctionalities.map((opt, id) => (
-          <NavLink key={id} to={`/${opt}`}>
+          <NavLink key={id} to={`/${opt.toLowerCase()}`}>
             {opt}
           </NavLink>
         ))}

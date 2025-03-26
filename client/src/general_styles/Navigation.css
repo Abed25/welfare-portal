@@ -6,6 +6,7 @@ div.nav {
   padding: 0;
   /* background-color: lightgray; */
   display: flex;
+  z-index: 0;
   align-items: center; /* Ensures items align properly */
 }
 div.nav ul {
@@ -60,7 +61,7 @@ div.nav a:not(.active):hover {
     position: absolute;
     /* border: red solid 1px; */
     padding: 20px;
-    top: -20px;
+    top: 0;
     left: -20px;
     /* background-color: wheat; */
     background-color: #4a90e2;

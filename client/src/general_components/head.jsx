@@ -28,8 +28,21 @@ export default function Head() {
     <div className="head">
       <label
         htmlFor="head"
-        onClick={() => navigate("/")}
-        style={{ fontWeight: "bold" }}
+        onClick={() =>
+          navigate(
+            role === "student"
+              ? "/student-dashboard"
+              : role === "counsellor"
+              ? "/counsellor-dashboard"
+              : "/"
+          )
+        }
+        style={{
+          fontWeight: "bold",
+          position: "absolute",
+          left: "80px",
+          cursor: "pointer",
+        }}
       >
         Welfare
       </label>
