@@ -65,8 +65,8 @@ div.menu {
 @media (max-width: 800px) {
   div.menu {
     display: flex;
-    position: absolute;
-    top: -30px;
+    position: fixed;
+    top: 0;
     left: 10px;
     z-index: 3;
   }
