@@ -20,7 +20,7 @@ export default function Nav() {
         "LMS",
         "Exambank",
       ],
-      counsellor: ["Feeds history", "ToDO", "Marketplace"],
+      counsellor: ["Counselling", "Feeds history", "ToDO", "Marketplace"],
       default: ["Home", "About", "Login"],
     };
 

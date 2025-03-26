@@ -35,6 +35,7 @@ export default function Layout() {
               </ProtectedRoute>
             }
           >
+            <Route path="/Counselling" element={<Counselling_Layout />}></Route>
             <Route path="/home" element={<Home />} />
           </Route>
 
