@@ -26,7 +26,13 @@ export default function Head() {
 
   return (
     <div className="head">
-      <label htmlFor="head">Welfare</label>
+      <label
+        htmlFor="head"
+        onClick={() => navigate("/")}
+        style={{ fontWeight: "bold" }}
+      >
+        Welfare
+      </label>
       {user && (
         <div className="contactContainer">
           <FontAwesomeIcon

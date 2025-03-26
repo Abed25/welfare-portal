@@ -1,18 +1,11 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import SubHeader from "../general_components/SubHeader";
 
 const StudentDashboard = () => {
   return (
-    <div style={styles.container}>
-      <ol style={{ textAlign: "left" }}>
-        <li>Couselling</li>
-        <li>Marketplace</li>
-        <li>ToDO</li>
-        <li>Claim points</li>
-        <li>student portal</li>
-        <li>LMS</li>
-        <li>Exam bank</li>
-      </ol>
+    <div>
+      <SubHeader />
       <h1 style={styles.heading}>Student Dashboard</h1>
       <p>Welcome to your dashboard! Here you can manage your activities.</p>
       <NavLink to="/" style={styles.link}>

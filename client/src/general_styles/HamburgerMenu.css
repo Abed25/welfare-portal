@@ -1,0 +1,72 @@
+div.menu {
+  display: none;
+}
+/* Hamburger icon */
+.menu-icon {
+  display: inline-block;
+  cursor: pointer;
+  padding: 1px;
+  z-index: 3;
+}
+
+.menu-icon div {
+  width: 35px;
+  height: 5px;
+  background-color: black;
+  margin: 6px 0;
+  transition: 0.4s;
+}
+
+/* Rotate first bar */
+.menu-icon.open .bar1 {
+  -webkit-transform: rotate(-45deg) translate(-9px, 6px);
+  transform: rotate(-45deg) translate(-9px, 6px);
+}
+
+/* Fade out the second bar */
+.menu-icon.open .bar2 {
+  opacity: 0;
+}
+
+/* Rotate last bar */
+.menu-icon.open .bar3 {
+  -webkit-transform: rotate(45deg) translate(-8px, -8px);
+  transform: rotate(45deg) translate(-8px, -8px);
+}
+
+/* The navigation menu */
+/* .menu {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 20px;
+  }
+  
+  .menu.open {
+      display: flex;
+  }
+  
+  .menu ul {
+      list-style-type: none;
+      padding: 0;
+  }
+  
+  .menu li {
+      margin: 10px 0;
+  }
+  
+  .menu a {
+      text-decoration: none;
+      color: #333;
+      font-size: 18px;
+  }
+   */
+
+@media (max-width: 800px) {
+  div.menu {
+    display: flex;
+    position: absolute;
+    top: 20px;
+    left: 4px;
+  }
+}

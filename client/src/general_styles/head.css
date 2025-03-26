@@ -9,6 +9,7 @@ div.head {
   top: 0;
   width: 100%;
   z-index: 1000;
+  height: 22px; /* Define a fixed height */
 }
 
 div.contactContainer {

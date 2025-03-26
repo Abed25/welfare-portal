@@ -25,6 +25,7 @@ export default function Layout() {
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="*" element={<NotFound />} />
+          <Route path="/test" element={<Test />} />
 
           {/* Protected Routes */}
           <Route
@@ -56,8 +57,6 @@ export default function Layout() {
               </ProtectedRoute>
             }
           />
-
-          <Route path="/test" element={<Test />} />
         </Routes>
         ;
       </div>

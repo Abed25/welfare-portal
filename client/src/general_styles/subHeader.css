@@ -1,0 +1,9 @@
+div.subHeader {
+  width: 100%;
+  /* border: red 1px solid; */
+  height: auto;
+  position: relative;
+  display: flex;
+  flex-direction: column; /* Ensures nav stays inside */
+  margin-top: -38px;
+}
