@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react"; // ✅ Add useContext
 import "../../styles/counsellor.css";
 import DynamicButton from "../../components/button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -6,8 +6,10 @@ import {
   faCircleChevronDown,
   faCircleChevronUp,
 } from "@fortawesome/free-solid-svg-icons";
+import { WebSocketContext } from "../../../context/WebSocketProvider"; // ✅ Import WebSocket Context
 
 export default function Counsellor() {
+  const { messages } = useContext(WebSocketContext); // ✅ Use WebSocketContext
   const [expandedItems, setExpandedItems] = useState({});
   const [requests, setRequests] = useState([]);
   const [responses, setResponses] = useState({});
@@ -19,6 +21,13 @@ export default function Counsellor() {
       .then((data) => setRequests(data))
       .catch((error) => console.error("Error fetching data:", error));
   }, []);
+
+  // ✅ Update requests when new messages arrive
+  useEffect(() => {
+    if (messages.length > 0) {
+      setRequests((prevRequests) => [...prevRequests, ...messages]);
+    }
+  }, [messages]);
 
   const handleView = (id) => {
     setExpandedItems((prev) => ({
@@ -59,7 +68,10 @@ export default function Counsellor() {
         setRequests((prev) =>
           prev.map((req) =>
             req._id === id
-              ? { ...req, responses: [...(req.responses || []), responseMessage] }
+              ? {
+                  ...req,
+                  responses: [...(req.responses || []), responseMessage],
+                }
               : req
           )
         );
@@ -86,11 +98,17 @@ export default function Counsellor() {
       {requests.map((request) => (
         <div
           key={request._id}
-          className={expandedItems[request._id] ? "studentRequestV2" : "studentRequestV1"}
+          className={
+            expandedItems[request._id] ? "studentRequestV2" : "studentRequestV1"
+          }
         >
           <FontAwesomeIcon
             className="dropDown"
-            icon={expandedItems[request._id] ? faCircleChevronUp : faCircleChevronDown}
+            icon={
+              expandedItems[request._id]
+                ? faCircleChevronUp
+                : faCircleChevronDown
+            }
             onClick={() => handleView(request._id)}
           />
           <h4>Name: {request.name}</h4>
@@ -102,7 +120,9 @@ export default function Counsellor() {
               <h5>Previous Responses:</h5>
               <ul>
                 {request.responses && request.responses.length > 0 ? (
-                  request.responses.map((res, index) => <li key={index}>{res}</li>)
+                  request.responses.map((res, index) => (
+                    <li key={index}>{res}</li>
+                  ))
                 ) : (
                   <p>No responses yet</p>
                 )}
@@ -118,7 +138,9 @@ export default function Counsellor() {
                 <p>Give a response:</p>
                 <textarea
                   value={responses[request._id] || ""}
-                  onChange={(e) => handleResponseChange(request._id, e.target.value)}
+                  onChange={(e) =>
+                    handleResponseChange(request._id, e.target.value)
+                  }
                 ></textarea>
                 <DynamicButton
                   name="Send"
