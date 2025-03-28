@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import DynamicButton from "../../components/button";
 import "../../styles/student.css";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { WebSocketContext } from "../../../context/WebSocketProvider";
 
@@ -63,7 +63,6 @@ export default function Student() {
             style={{ height: "30px", fontSize: "20px" }}
           />
         </form>
-        <ToastContainer position="top-center" autoClose={3000} />
       </div>
     </div>
   );

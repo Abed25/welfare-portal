@@ -5,7 +5,7 @@ import { doc, getDoc } from "firebase/firestore";
 import { db } from "../../firebase";
 import { Link, useNavigate } from "react-router-dom";
 import "../general_styles/login.css";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const Login = () => {
@@ -24,7 +24,7 @@ const Login = () => {
       const userDoc = await getDoc(doc(db, "users", user.uid));
       const userRole = userDoc.exists() ? userDoc.data().role : null;
 
-      alert("Login successful!");
+      toast.success("Login successful!");
 
       // Navigate based on role
       if (userRole === "student") {
@@ -81,7 +81,6 @@ const Login = () => {
       <p>
         Don't have an account? <Link to="/signup">Sign up</Link>
       </p>
-      <ToastContainer position="top-center" autoClose={3000} />
     </div>
   );
 };

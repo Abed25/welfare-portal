@@ -79,7 +79,6 @@ const SignUp = () => {
       <p>
         Already have an account? <Link to="/login">Login</Link>
       </p>
-      <ToastContainer position="top-center" autoClose={3000} />
     </div>
   );
 };

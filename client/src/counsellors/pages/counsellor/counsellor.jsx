@@ -7,6 +7,7 @@ import {
   faCircleChevronUp,
 } from "@fortawesome/free-solid-svg-icons";
 import { WebSocketContext } from "../../../context/WebSocketProvider"; // ✅ Import WebSocket Context
+import { toast } from "react-toastify";
 
 export default function Counsellor() {
   const { messages } = useContext(WebSocketContext); // ✅ Use WebSocketContext
@@ -50,7 +51,7 @@ export default function Counsellor() {
     const responseMessage = responses[id] || "";
 
     if (!responseMessage.trim()) {
-      alert("Response cannot be empty!");
+      toast.error("Response cannot be empty!");
       return;
     }
 
@@ -63,7 +64,7 @@ export default function Counsellor() {
     })
       .then((res) => res.json())
       .then((data) => {
-        alert("Response sent successfully!");
+        toast.success("Response sent successfully");
         setResponses((prev) => ({ ...prev, [id]: "" })); // Clear the response field
         setRequests((prev) =>
           prev.map((req) =>
