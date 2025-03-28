@@ -29,7 +29,42 @@ io.on("connection", (socket) => {
 
   socket.on("sendMessage", (message) => {
     console.log("📩 Message Received:", message);
-    io.emit("receiveMessage", message); // Broadcast to all clients
+
+    // Emit message to all clients first (non-blocking)
+    io.emit("receiveMessage", message);
+
+    // Only save messages with specific types
+    const saveTypes = ["studentReq", "feedback", "generalQuery"];
+    if (!saveTypes.includes(message.type)) return;
+
+    let apiUrl = "";
+    switch (message.type) {
+      case "studentReq":
+        apiUrl = "http://localhost:5000/api/submit-form";
+        break;
+      case "feedback":
+        apiUrl = "http://localhost:5000/api/submit-feedback";
+        break;
+      case "generalQuery":
+        apiUrl = "http://localhost:5000/api/general-query";
+        break;
+    }
+
+    console.log(`🚀 Sending request to: ${apiUrl}`);
+
+    // Execute fetch request asynchronously, without blocking WebSocket response
+    fetch(apiUrl, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(message),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (!data.success) {
+          console.error("❌ Error saving message:", data.error);
+        }
+      })
+      .catch((error) => console.error("❌ Error in sendMessage:", error));
   });
 
   socket.on("disconnect", () => {
