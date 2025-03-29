@@ -1,6 +1,6 @@
 div.landing {
   background-color: white;
-
+  background-color: rgba(0, 0, 255, 0.1);
   height: 100vh;
 }
 h1.landing {
@@ -16,19 +16,16 @@ div.auth {
   height: 90vh;
 }
 div.auth {
-  /* background-image: url("/src/assets/background.jpg");
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center; */
+  position: relative;
   float: right;
+  z-index: 1;
 }
 
 div.welcoming {
-  background-color: rgba(0, 0, 255, 0.274);
   top: 0;
   height: 100vh;
   position: fixed;
-  z-index: 0;
+  z-index: 2;
   float: left;
 }
 
@@ -40,7 +37,7 @@ section.view2 {
 }
 section.view1 {
   margin: 150px 20px;
-  background-color: rgba(0, 0, 255, 0.274);
+  /* background-color: rgba(0, 0, 255, 0.274); */
   background-color: transparent;
   border: black 2px solid;
   font-size: 40px;
@@ -49,9 +46,28 @@ section.view1 {
 }
 section.view2 {
   z-index: -3;
-  border: green 1px solid;
-  background-color: blue;
-  color: aliceblue;
+  border: rgba(0, 0, 255, 0.3) 1px solid;
+  background-color: transparent;
+  /* background-color: blue; */
+  /* color: aliceblue; */
   height: auto;
   margin-top: 100px;
+}
+
+button.landingBtns {
+  padding: 12px 24px;
+  margin: 6px;
+  font-size: 1.2rem;
+  background: #655bfa;
+  color: rgba(255, 255, 255, 0.9);
+  border: gray 1px solid;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.3s ease-in-out;
+}
+
+button.landingBtns:hover {
+  background: #1000f7;
+  color: white;
 }
