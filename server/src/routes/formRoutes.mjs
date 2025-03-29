@@ -6,22 +6,27 @@ const router = Router();
 // Submit form
 router.post("/api/submit-form", async (req, res) => {
   try {
-    const { email, message } = req.body;
+    console.log("📥 Received Data:", req.body); // Debugging
 
-    // Check if the same email has submitted the same message
+    const { name, email, message, registeredEmail } = req.body;
+    if (!registeredEmail) {
+      console.error("❌ Missing registeredEmail in request!");
+    }
+
     const existingEntry = await FormData.findOne({ email, message });
-
     if (existingEntry) {
       return res
         .status(400)
         .json({ error: "You have already submitted this message!" });
     }
 
-    // Save only if it's a new entry
-    const formData = new FormData(req.body);
+    const formData = new FormData({ name, email, message, registeredEmail });
     await formData.save();
+
+    console.log("✅ Data saved:", formData); // Debugging
     res.status(201).json({ message: "Form data saved successfully!" });
   } catch (error) {
+    console.error("❌ Error saving form:", error);
     res.status(500).json({ error: "Error saving form data" });
   }
 });
@@ -29,7 +34,10 @@ router.post("/api/submit-form", async (req, res) => {
 // Get all submissions
 router.get("/api/submit-form", async (req, res) => {
   try {
-    const formData = await FormData.find({}, "name email message responses");
+    const formData = await FormData.find(
+      {},
+      "name email registeredEmail message responses"
+    );
     res.status(200).json(formData);
   } catch (error) {
     res.status(500).json({ error: "Error fetching form data" });
