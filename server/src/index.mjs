@@ -60,7 +60,9 @@ io.on("connection", (socket) => {
     })
       .then((response) => response.json())
       .then((data) => {
-        if (!data.success) {
+        console.log("✅ Response received:", data); // Debugging
+        if (data.error) {
+          // Fix: Check `error` instead of `success`
           console.error("❌ Error saving message:", data.error);
         }
       })

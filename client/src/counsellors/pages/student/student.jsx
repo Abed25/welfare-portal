@@ -4,19 +4,21 @@ import "../../styles/student.css";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { WebSocketContext } from "../../../context/WebSocketProvider";
+import { useAuth } from "../../../context/AuthProvider";
 
 export default function Student() {
+  const { user } = useAuth();
   const { sendMessage } = useContext(WebSocketContext);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     message: "",
+    registeredEmail: "",
   });
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Submit clicked!"); // Debugging
@@ -26,10 +28,16 @@ export default function Student() {
       return;
     }
 
-    sendMessage({ sender: "student", type: "studentReq", ...formData });
+    // Create an updated object without modifying state first
+    const updatedForm = {
+      ...formData,
+      registeredEmail: user.email,
+    };
+
+    sendMessage({ sender: "student", type: "studentReq", ...updatedForm });
 
     toast.success("Message sent successfully!");
-    setFormData({ name: "", email: "", message: "" });
+    setFormData({ name: "", email: "", message: "", registeredEmail: "" });
   };
 
   return (
