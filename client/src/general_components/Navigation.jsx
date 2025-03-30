@@ -30,6 +30,18 @@ export default function Nav() {
   return (
     <div className="nav">
       <ul className={menuOpen ? "view" : null}>
+        <NavLink
+          to={
+            role === "student"
+              ? "/student-dashboard"
+              : role === "counsellor"
+              ? "/counsellor-dashboard"
+              : "/"
+          }
+        >
+          Home
+        </NavLink>
+
         {userFunctions.map((opt, id) => (
           <NavLink key={id} to={`/${opt.toLowerCase().replace(/\s+/g, "-")}`}>
             {opt}
