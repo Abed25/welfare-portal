@@ -14,6 +14,7 @@ import Test from "./general_pages/Test";
 import CounsellorDashboard from "./general_pages/counsellorDashboard";
 import StudentDashboard from "./general_pages/studentDashboard";
 import Home from "./general_pages/Home";
+import ToDOLayout from "./ToDo/pages/layout";
 
 export default function Layout() {
   return (
@@ -36,6 +37,8 @@ export default function Layout() {
             }
           >
             <Route path="/Counselling" element={<Counselling_Layout />}></Route>
+            <Route path="/todo" element={<ToDOLayout />}></Route>
+
             <Route path="/home" element={<Home />} />
           </Route>
 
