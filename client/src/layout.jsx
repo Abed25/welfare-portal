@@ -15,6 +15,8 @@ import CounsellorDashboard from "./general_pages/counsellorDashboard";
 import StudentDashboard from "./general_pages/studentDashboard";
 import Home from "./general_pages/Home";
 import ToDOLayout from "./ToDo/pages/layout";
+import TaskForm from "./ToDo/pages/TaskForm";
+import FetchTasks from "./ToDo/pages/Output";
 
 export default function Layout() {
   return (
@@ -37,8 +39,12 @@ export default function Layout() {
             }
           >
             <Route path="/Counselling" element={<Counselling_Layout />}></Route>
-            <Route path="/todo" element={<ToDOLayout />}></Route>
+            <Route path="/todo" element={<ToDOLayout />}>
+              <Route path="add-tasks" element={<TaskForm />} />
+              <Route path="list-of-tasks" element={<FetchTasks />} />
+            </Route>
 
+            {/* /todo/add-tasks */}
             <Route path="/home" element={<Home />} />
           </Route>
 

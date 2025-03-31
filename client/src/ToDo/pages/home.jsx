@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import "../styles/home.css";
 
 export default function ToDoHome() {
@@ -29,7 +30,10 @@ export default function ToDoHome() {
             color: "black",
           }}
           title="More features coming..."
-          onClick={() => alert("More features coming soon!")}
+          onClick={() => {
+            toast.success("More features coming soon!");
+            navigate("/todo");
+          }}
         >
           +
         </button>
