@@ -26,7 +26,19 @@ export const AuthProvider = ({ children }) => {
           setUser(currentUser);
           if (currentUser) {
             const userDoc = await getDoc(doc(db, "users", currentUser.uid));
-            setRole(userDoc.exists() ? userDoc.data().role : null);
+            if (userDoc.exists()) {
+              const userData = userDoc.data();
+              setRole(userData.role || null);
+
+              setUser((prevUser) => ({
+                ...prevUser,
+                username: userData.username || null,
+                firstname: userData.firstname || null,
+                lastname: userData.lastname || null,
+              }));
+            } else {
+              setRole(null);
+            }
           } else {
             setRole(null);
           }

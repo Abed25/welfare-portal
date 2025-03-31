@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import SubHeader from "../general_components/SubHeader";
 import "../general_styles/studentDash.css";
+import { useAuth } from "../context/AuthProvider";
 
 const StudentDashboard = () => {
+  const { user } = useAuth();
   const [darkMode, setDarkMode] = useState(false);
   const toggleDarkMode = () => setDarkMode(!darkMode);
 
@@ -15,7 +17,7 @@ const StudentDashboard = () => {
           <img></img>
         </div>
         <div className="AboutProfile">
-          <h2 className="dashboard-heading">Welcome back, Abednego!</h2>
+          <h2 className="dashboard-heading">Welcome back, {user.username}!</h2>
           <p className="dashboard-intro">
             Manage your student welfare with ease.
           </p>

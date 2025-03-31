@@ -3,10 +3,13 @@ import { auth, db } from "../../firebase"; // Import Firestore
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { setDoc, doc } from "firebase/firestore"; // Firestore functions
 import { Link, useNavigate } from "react-router-dom";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const SignUp = () => {
+  const [firstname, setFirstname] = useState("");
+  const [lastname, setLastname] = useState("");
+  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -26,11 +29,18 @@ const SignUp = () => {
       );
       const user = userCredential.user;
 
-      // Store user role in Firestore
-      await setDoc(doc(db, "users", user.uid), {
+      // Create user object
+      const userData = {
+        uid: user.uid,
+        firstname,
+        lastname,
+        username,
         email,
-        role, // Store the selected role
-      });
+        role,
+      };
+
+      // Store user data in Firestore
+      await setDoc(doc(db, "users", user.uid), userData);
 
       toast.success(`User registered successfully as ${role}!`);
       navigate("/login"); // Redirect to login after signup
@@ -42,6 +52,30 @@ const SignUp = () => {
   return (
     <div className="login">
       <h2>Sign Up</h2>
+      <input
+        type="text"
+        placeholder="First Name"
+        value={firstname}
+        onChange={(e) => setFirstname(e.target.value)}
+        style={{ marginTop: "10px" }}
+        required
+      />
+      <input
+        type="text"
+        placeholder="Last Name"
+        value={lastname}
+        onChange={(e) => setLastname(e.target.value)}
+        style={{ marginTop: "10px" }}
+        required
+      />
+      <input
+        type="text"
+        placeholder="Username"
+        value={username}
+        onChange={(e) => setUsername(e.target.value)}
+        style={{ marginTop: "10px" }}
+        required
+      />
       <input
         type="email"
         placeholder="Email"

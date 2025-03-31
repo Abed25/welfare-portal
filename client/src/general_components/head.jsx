@@ -17,6 +17,8 @@ export default function Head() {
         <h4 style={{ textAlign: "center", textDecoration: "underline" }}>
           Contact Information
         </h4>
+        <p>Username: {user.username}</p>
+        <p>Fullname: {`${user.firstname} ${user.lastname}`}</p>
         <p>Email: {user.email}</p>
         <p>Role: {role}</p>
         <button onClick={logout}>Logout</button>
