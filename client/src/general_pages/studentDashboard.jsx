@@ -8,13 +8,18 @@ const StudentDashboard = () => {
   const toggleDarkMode = () => setDarkMode(!darkMode);
 
   return (
-    <div className={`studentDashboard ${darkMode ? "dark" : ""}`}>
+    <div className="Dashboard">
       <SubHeader />
       <div className="profile">
-        <h1 className="dashboard-heading">Welcome back, Abednego!</h1>
-        <p className="dashboard-intro">
-          Manage your student welfare with ease.
-        </p>
+        <div className="ImageContainer">
+          <img></img>
+        </div>
+        <div className="AboutProfile">
+          <h2 className="dashboard-heading">Welcome back, Abednego!</h2>
+          <p className="dashboard-intro">
+            Manage your student welfare with ease.
+          </p>
+        </div>
       </div>
 
       <div className="welcome-section">
