@@ -1,8 +1,35 @@
 /* StudentDashboard.css */
-.studentDashboard {
+.Dashboard {
   text-align: center;
   padding: 20px;
   font-family: Arial, sans-serif;
+  /* border: red 1px dotted; */
+  box-sizing: border-box;
+  width: 100%;
+  object-fit: cover;
+}
+div.profile {
+  /* border: red 1px solid; */
+  width: 100%;
+  float: left;
+  position: relative;
+  height: auto;
+}
+div.ImageContainer {
+  border: green solid 1px;
+  width: 180px;
+  height: 180px;
+  border-radius: 100px;
+  float: left;
+}
+div.AboutProfile {
+  text-align: center;
+  position: relative;
+  /* border: red 1px solid; */
+  width: 50%;
+  float: left;
+  margin-top: 20px;
+  /* margin-left: 200px; */
 }
 
 .dashboard-heading {
@@ -18,7 +45,9 @@
 }
 
 .welcome-section {
-  background: #f1f1f1;
+  clear: both;
+  object-fit: cover;
+  background: #4a91e24f;
   padding: 20px;
   border-radius: 8px;
   margin-bottom: 20px;
@@ -38,7 +67,7 @@
   padding: 12px 20px;
   text-decoration: none;
   border-radius: 5px;
-  transition: background 0.3s ease-in-out;
+  transition: 0.3s ease-in-out;
 }
 
 .dashboard-card:hover {
@@ -50,8 +79,9 @@
   padding: 15px;
   border-radius: 5px;
   width: 80%;
-  margin: 0 auto 20px;
+  margin: 20px auto;
   text-align: left;
+  /* border: red 1px solid; */
 }
 
 .announcements h2 {
@@ -74,6 +104,7 @@
 }
 
 .welfare-status {
+  /* border: red 1px solid; */
   background: #eef5ff;
   padding: 15px;
   border-radius: 5px;
@@ -132,9 +163,20 @@
   padding: 8px 16px;
   border: none;
   border-radius: 5px;
-  transition: background 0.3s;
+  transition: 0.3s;
 }
 
 .dark-mode-toggle:hover {
   background: #357abd;
+}
+
+@media (max-width: 550px) {
+  div.ImageContainer,
+  div.AboutProfile {
+    margin: auto;
+    float: none;
+  }
+  div.AboutProfile {
+    text-align: left;
+  }
 }
