@@ -3,8 +3,7 @@ import mongoose from "mongoose";
 const { Schema, model } = mongoose; // ✅ Extract Schema and model
 
 const formSchema = new Schema({
-  name: String,
-  email: String,
+  userName: String,
   registeredEmail: String,
   message: String,
   responses: { type: [String], default: [] }, // Array of responses

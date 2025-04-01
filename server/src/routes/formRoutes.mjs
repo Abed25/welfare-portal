@@ -8,19 +8,26 @@ router.post("/api/submit-form", async (req, res) => {
   try {
     console.log("📥 Received Data:", req.body); // Debugging
 
-    const { name, email, message, registeredEmail } = req.body;
+    const { userName, message, registeredEmail } = req.body;
     if (!registeredEmail) {
-      console.error("❌ Missing registeredEmail in request!");
+      return res
+        .status(400)
+        .json({ error: "Missing registeredEmail in request!" });
     }
 
-    const existingEntry = await FormData.findOne({ email, message });
+    const existingEntry = await FormData.findOne({ registeredEmail, message });
     if (existingEntry) {
       return res
         .status(400)
         .json({ error: "You have already submitted this message!" });
     }
 
-    const formData = new FormData({ name, email, message, registeredEmail });
+    const formData = new FormData({
+      userName,
+      registeredEmail,
+      message,
+    });
+
     await formData.save();
 
     console.log("✅ Data saved:", formData); // Debugging
@@ -36,7 +43,7 @@ router.get("/api/submit-form", async (req, res) => {
   try {
     const formData = await FormData.find(
       {},
-      "name email registeredEmail message responses"
+      "userName registeredEmail message responses"
     );
     res.status(200).json(formData);
   } catch (error) {
