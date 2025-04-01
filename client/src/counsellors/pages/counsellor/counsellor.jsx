@@ -112,9 +112,14 @@ export default function Counsellor() {
             }
             onClick={() => handleView(request._id)}
           />
-          <h4>Name: {request.name}</h4>
-          <p>{request.email}</p>
-          <p>{request.message}</p>
+          <h4>Name: {request.userName}</h4>
+          <p>{request.registeredEmail}</p>
+          <h4>Requests</h4>
+          {request.messages && request.messages.length > 0 ? (
+            request.messages.map((req, index) => <li key={index}>{req}</li>)
+          ) : (
+            <p>No message yet</p>
+          )}
 
           {expandedItems[request._id] && (
             <div className="respondContainer">
