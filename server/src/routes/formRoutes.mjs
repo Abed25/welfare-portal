@@ -3,29 +3,37 @@ import { FormData } from "../models/FormData.mjs"; // Ensure correct model impor
 
 const router = Router();
 
-// Submit form
+// Submit form (store messages as an array)
 router.post("/api/submit-form", async (req, res) => {
   try {
     console.log("📥 Received Data:", req.body); // Debugging
 
     const { userName, message, registeredEmail } = req.body;
-    if (!registeredEmail) {
+    if (!registeredEmail || !message) {
       return res
         .status(400)
-        .json({ error: "Missing registeredEmail in request!" });
+        .json({ error: "Missing registeredEmail or message in request!" });
     }
 
-    const existingEntry = await FormData.findOne({ registeredEmail, message });
+    // Find an existing entry by registeredEmail
+    const existingEntry = await FormData.findOne({ registeredEmail });
+
     if (existingEntry) {
+      // Push new message to messages array
+      await FormData.updateOne(
+        { registeredEmail },
+        { $push: { messages: message } }
+      );
       return res
-        .status(400)
-        .json({ error: "You have already submitted this message!" });
+        .status(200)
+        .json({ message: "Message added to existing user!" });
     }
 
+    // Create new entry if user doesn't exist
     const formData = new FormData({
       userName,
       registeredEmail,
-      message,
+      messages: [message], // Store message as an array
     });
 
     await formData.save();
@@ -43,7 +51,7 @@ router.get("/api/submit-form", async (req, res) => {
   try {
     const formData = await FormData.find(
       {},
-      "userName registeredEmail message responses"
+      "userName registeredEmail messages responses" // Update `message` to `messages`
     );
     res.status(200).json(formData);
   } catch (error) {

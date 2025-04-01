@@ -5,8 +5,8 @@ const { Schema, model } = mongoose; // ✅ Extract Schema and model
 const formSchema = new Schema({
   userName: String,
   registeredEmail: String,
-  message: String,
-  responses: { type: [String], default: [] }, // Array of responses
+  messages: { type: [String], default: [] }, // Store messages as an array
+  responses: { type: [String], default: [] }, // Store responses as an array
 });
 
 export const FormData = model("FormData", formSchema); // ✅ Export correctly
