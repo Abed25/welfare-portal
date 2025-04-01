@@ -10,9 +10,8 @@ export default function Student() {
   const { user } = useAuth();
   const { sendMessage } = useContext(WebSocketContext);
   const [formData, setFormData] = useState({
-    name: "",
-    email: "",
     message: "",
+    userName: "",
     registeredEmail: "",
   });
 
@@ -23,7 +22,7 @@ export default function Student() {
     e.preventDefault();
     console.log("Submit clicked!"); // Debugging
 
-    if (!formData.name || !formData.email || !formData.message) {
+    if (!formData.message) {
       toast.error("All fields are required!");
       return;
     }
@@ -31,13 +30,18 @@ export default function Student() {
     // Create an updated object without modifying state first
     const updatedForm = {
       ...formData,
+      userName: user.username,
       registeredEmail: user.email,
     };
 
     sendMessage({ sender: "student", type: "studentReq", ...updatedForm });
 
     toast.success("Message sent successfully!");
-    setFormData({ name: "", email: "", message: "", registeredEmail: "" });
+    setFormData({
+      message: "",
+      userName: "",
+      registeredEmail: "",
+    });
   };
 
   return (
@@ -45,20 +49,6 @@ export default function Student() {
       <h2>Talk to Counsellor</h2>
       <div className="InnerContainer">
         <form onSubmit={handleSubmit}>
-          <input
-            type="text"
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-            placeholder="Type your name"
-          />
-          <input
-            type="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            placeholder="Enter your email"
-          />
           <textarea
             name="message"
             value={formData.message}
