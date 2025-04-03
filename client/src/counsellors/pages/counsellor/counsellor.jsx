@@ -8,9 +8,11 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { WebSocketContext } from "../../../context/WebSocketProvider";
 import { toast } from "react-toastify";
+import { useAuth } from "../../../context/AuthProvider";
 
 export default function Counsellor() {
-  const { messages } = useContext(WebSocketContext);
+  const { user } = useAuth();
+  const { messages, sendMessage } = useContext(WebSocketContext);
   const [expandedItems, setExpandedItems] = useState({});
   const [requests, setRequests] = useState([]);
   const [responses, setResponses] = useState({});
@@ -47,6 +49,13 @@ export default function Counsellor() {
       toast.error("Response cannot be empty!");
       return;
     }
+    //Sending realtime message to the server
+    sendMessage({
+      sender: "counsellor",
+      type: "CounsellorRes",
+      to: `${user.username}`,
+      response: responseMessage,
+    });
 
     fetch("http://localhost:5000/api/respond", {
       method: "POST",
