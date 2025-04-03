@@ -53,7 +53,7 @@ export default function Counsellor() {
     sendMessage({
       sender: "counsellor",
       type: "CounsellorRes",
-      to: `${user.username}`,
+      from: `${user.username}`,
       response: responseMessage,
     });
 
