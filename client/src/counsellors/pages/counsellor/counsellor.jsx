@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react"; // ✅ Add useContext
+import React, { useState, useEffect, useContext } from "react";
 import "../../styles/counsellor.css";
 import DynamicButton from "../../components/button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -6,11 +6,11 @@ import {
   faCircleChevronDown,
   faCircleChevronUp,
 } from "@fortawesome/free-solid-svg-icons";
-import { WebSocketContext } from "../../../context/WebSocketProvider"; // ✅ Import WebSocket Context
+import { WebSocketContext } from "../../../context/WebSocketProvider";
 import { toast } from "react-toastify";
 
 export default function Counsellor() {
-  const { messages } = useContext(WebSocketContext); // ✅ Use WebSocketContext
+  const { messages } = useContext(WebSocketContext);
   const [expandedItems, setExpandedItems] = useState({});
   const [requests, setRequests] = useState([]);
   const [responses, setResponses] = useState({});
@@ -23,19 +23,12 @@ export default function Counsellor() {
       .catch((error) => console.error("Error fetching data:", error));
   }, []);
 
-  // ✅ Update requests when new messages arrive
-  useEffect(() => {
-    if (messages.length > 0) {
-      setRequests((prevRequests) => [...prevRequests, ...messages]);
-    }
-  }, [messages]);
-
   const handleView = (id) => {
     setExpandedItems((prev) => ({
       ...Object.keys(prev).reduce((acc, key) => {
         acc[key] = false;
         return acc;
-      }, {}), // Close all other expanded divs
+      }, {}),
       [id]: !prev[id],
     }));
   };
@@ -65,7 +58,7 @@ export default function Counsellor() {
       .then((res) => res.json())
       .then((data) => {
         toast.success("Response sent successfully");
-        setResponses((prev) => ({ ...prev, [id]: "" })); // Clear the response field
+        setResponses((prev) => ({ ...prev, [id]: "" }));
         setRequests((prev) =>
           prev.map((req) =>
             req._id === id
@@ -115,11 +108,22 @@ export default function Counsellor() {
           <h4>Name: {request.userName}</h4>
           <p>{request.registeredEmail}</p>
           <h4>Requests</h4>
-          {request.messages && request.messages.length > 0 ? (
-            request.messages.map((req, index) => <li key={index}>{req}</li>)
-          ) : (
-            <p>No message yet</p>
-          )}
+          <ul>
+            {request.messages && request.messages.length > 0 ? (
+              request.messages.map((req, index) => <li key={index}>{req}</li>)
+            ) : (
+              <p>No message yet</p>
+            )}
+            {/* Hold realtime changes and will automatically be cleaned after a refresh and automatically be fetched from the db */}
+            {messages
+              .filter((msg) => msg.type === "studentReq") // ✅ Only studentReq messages
+              .map((msg, index) => (
+                <li key={index} style={{ color: "blue" }}>
+                  {" "}
+                  {`${msg.message}(new)`}
+                </li>
+              ))}
+          </ul>
 
           {expandedItems[request._id] && (
             <div className="respondContainer">

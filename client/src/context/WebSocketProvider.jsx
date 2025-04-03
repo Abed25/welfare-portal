@@ -9,8 +9,10 @@ export const WebSocketProvider = ({ children }) => {
 
   useEffect(() => {
     console.log("🛠️ Attempting WebSocket connection...");
-    
-    const newSocket = io("http://localhost:5000", { transports: ["websocket"] });
+
+    const newSocket = io("http://localhost:5000", {
+      transports: ["websocket"],
+    });
     setSocket(newSocket);
 
     newSocket.on("connect", () => {
