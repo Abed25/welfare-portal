@@ -16,6 +16,7 @@ export default function Counsellor() {
   const [expandedItems, setExpandedItems] = useState({});
   const [requests, setRequests] = useState([]);
   const [responses, setResponses] = useState({});
+  const [specifiedUser, setSpecifiedUser] = useState(""); // ✅ Controlled state
 
   // Fetch form data from API
   useEffect(() => {
@@ -25,7 +26,7 @@ export default function Counsellor() {
       .catch((error) => console.error("Error fetching data:", error));
   }, []);
 
-  const handleView = (id) => {
+  const handleView = (id, userName) => {
     setExpandedItems((prev) => ({
       ...Object.keys(prev).reduce((acc, key) => {
         acc[key] = false;
@@ -33,6 +34,10 @@ export default function Counsellor() {
       }, {}),
       [id]: !prev[id],
     }));
+
+    if (!expandedItems[id]) {
+      setSpecifiedUser(userName); // ✅ Set only when opening a request
+    }
   };
 
   const handleResponseChange = (id, value) => {
@@ -49,11 +54,12 @@ export default function Counsellor() {
       toast.error("Response cannot be empty!");
       return;
     }
-    //Sending realtime message to the server
+
     sendMessage({
       sender: "counsellor",
       type: "CounsellorRes",
-      from: `${user.username}`,
+      to: specifiedUser, // ✅ Corrected specified user
+      from: user.username,
       response: responseMessage,
     });
 
@@ -65,7 +71,7 @@ export default function Counsellor() {
       body: JSON.stringify({ studentId: id, response: responseMessage }),
     })
       .then((res) => res.json())
-      .then((data) => {
+      .then(() => {
         toast.success("Response sent successfully");
         setResponses((prev) => ({ ...prev, [id]: "" }));
         setRequests((prev) =>
@@ -112,7 +118,7 @@ export default function Counsellor() {
                 ? faCircleChevronUp
                 : faCircleChevronDown
             }
-            onClick={() => handleView(request._id)}
+            onClick={() => handleView(request._id, request.userName)}
           />
           <h4>Name: {request.userName}</h4>
           <p>{request.registeredEmail}</p>
@@ -123,13 +129,15 @@ export default function Counsellor() {
             ) : (
               <p>No message yet</p>
             )}
-            {/* Hold realtime changes and will automatically be cleaned after a refresh and automatically be fetched from the db */}
+            {/* ✅ Only show messages for the specified user */}
             {messages
-              .filter((msg) => msg.type === "studentReq") // ✅ Only studentReq messages
+              .filter(
+                (msg) =>
+                  msg.type === "studentReq" && msg.userName === specifiedUser
+              )
               .map((msg, index) => (
                 <li key={index} style={{ color: "blue" }}>
-                  {" "}
-                  {`${msg.message}(new)`}
+                  {`${msg.message} (new)`}
                 </li>
               ))}
           </ul>
