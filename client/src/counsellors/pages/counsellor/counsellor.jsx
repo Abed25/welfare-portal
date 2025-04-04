@@ -18,7 +18,6 @@ export default function Counsellor() {
   const [responses, setResponses] = useState({});
   const [specifiedUser, setSpecifiedUser] = useState(""); // ✅ Controlled state
 
-  // Fetch form data from API
   useEffect(() => {
     fetch("http://localhost:5000/api/submit-form")
       .then((res) => res.json())
