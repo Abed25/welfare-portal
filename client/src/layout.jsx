@@ -17,6 +17,7 @@ import Home from "./general_pages/Home";
 import ToDOLayout from "./ToDo/pages/layout";
 import TaskForm from "./ToDo/pages/TaskForm";
 import FetchTasks from "./ToDo/pages/Output";
+import MarketPlace from "./marketplace/pages/MarketPlace";
 
 export default function Layout() {
   return (
@@ -39,6 +40,7 @@ export default function Layout() {
             }
           >
             <Route path="/Counselling" element={<Counselling_Layout />}></Route>
+            <Route path="/marketplace" element={<MarketPlace />}></Route>
             <Route path="/todo" element={<ToDOLayout />}>
               <Route path="add-tasks" element={<TaskForm />} />
               <Route path="list-of-tasks" element={<FetchTasks />} />
