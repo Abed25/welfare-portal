@@ -29,13 +29,6 @@ export default function SubFooter() {
             </li>
           </ul>
         </div>
-
-        {/* <div className="footer-section contact">
-          <h4>Contact Us</h4>
-          <p>Email: support@welfareportal.ac.ke</p>
-          <p>Phone: +254 712 345 678</p>
-          <p>Location: Student Affairs Office, Block A</p>
-        </div> */}
       </div>
     </div>
   );

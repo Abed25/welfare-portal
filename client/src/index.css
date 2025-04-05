@@ -10,3 +10,12 @@ body {
   display: flex;
   flex-direction: column;
 }
+.protected-layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Ensures the layout takes full height of the viewport */
+}
+
+.protected-content {
+  flex-grow: 1; /* This will allow the content to fill the remaining space */
+}
