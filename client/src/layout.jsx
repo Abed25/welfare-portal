@@ -72,7 +72,6 @@ export default function Layout() {
             }
           />
         </Routes>
-        ;
       </div>
       <Footer />
     </div>
