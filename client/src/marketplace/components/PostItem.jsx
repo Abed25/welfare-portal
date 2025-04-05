@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import "../styles/postitem.css";
 
 const PostItem = () => {
   const [formData, setFormData] = useState({
@@ -34,7 +35,8 @@ const PostItem = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="poster">
+      <h2 style={{ textAlign: "center" }}>Post Item</h2>
       <input
         name="title"
         placeholder="Title"

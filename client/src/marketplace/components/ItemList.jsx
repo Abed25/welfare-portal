@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import "../styles/itemList.css";
 
 const ItemList = () => {
   const [items, setItems] = useState([]);
@@ -12,21 +13,22 @@ const ItemList = () => {
   }, []);
 
   return (
-    <div>
-      <h2>Marketplace Items</h2>
+    <div className="ItemsView">
+      <h3>Marketplace Items</h3>
       {items.map((item) => (
         <div
           key={item.id}
           style={{ border: "1px solid gray", margin: "10px", padding: "10px" }}
+          className="item-card"
         >
-          <h3>{item.title}</h3>
+          <h4>{item.title}</h4>
           <p>{item.description}</p>
           <p>Price: KES {item.price}</p>
           <p>Posted by: {item.poster}</p>
           {item.image && (
             <img
               src={`http://localhost:5000${item.image}`}
-              alt=""
+              alt="Product"
               width="200"
             />
           )}

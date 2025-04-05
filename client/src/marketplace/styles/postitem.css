@@ -1,0 +1,47 @@
+.poster {
+  max-width: 500px;
+  margin: 3rem auto;
+  padding: 2rem;
+  background: linear-gradient(135deg, #e3f2fd, #90caf9);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  clear: both;
+}
+
+.poster input,
+.poster textarea,
+.poster button {
+  padding: 0.75rem;
+  border: 1px solid #bbdefb;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border 0.3s, box-shadow 0.3s;
+}
+
+.poster input:focus,
+.poster textarea:focus {
+  border-color: #42a5f5;
+  box-shadow: 0 0 0 2px rgba(66, 165, 245, 0.3);
+  outline: none;
+}
+
+.poster textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.poster button {
+  background-color: #42a5f5;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  border: none;
+}
+
+.poster button:hover {
+  background-color: #1565c0;
+}
