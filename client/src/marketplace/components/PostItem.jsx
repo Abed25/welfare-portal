@@ -25,7 +25,7 @@ const PostItem = () => {
     Object.keys(formData).forEach((key) => data.append(key, formData[key]));
 
     try {
-      await axios.post("http://localhost:3001/api/listings", data);
+      await axios.post("http://localhost:5000/api/listings", data);
       alert("Item posted!");
     } catch (err) {
       console.error(err);

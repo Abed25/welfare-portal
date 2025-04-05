@@ -6,7 +6,7 @@ const ItemList = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3001/api/listings")
+      .get("http://localhost:5000/api/listings")
       .then((res) => setItems(res.data))
       .catch((err) => console.error(err));
   }, []);
@@ -25,7 +25,7 @@ const ItemList = () => {
           <p>Posted by: {item.poster}</p>
           {item.image && (
             <img
-              src={`http://localhost:3001${item.image}`}
+              src={`http://localhost:5000${item.image}`}
               alt=""
               width="200"
             />
