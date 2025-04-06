@@ -42,7 +42,7 @@ export default function Landing() {
             ) : (
               <div>
                 <button
-                  onClick={() => navigate("/register")}
+                  onClick={() => navigate("/signup")}
                   className="landingBtns"
                 >
                   Get started
