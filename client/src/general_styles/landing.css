@@ -1,8 +1,12 @@
 div.landing {
-  background-color: white;
-  background-color: rgba(0, 0, 255, 0.1);
-  height: 100vh;
+  background: linear-gradient(to right, #dbeafe, #eef2ff);
+  height: 80vh;
+  display: flex;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  overflow: hidden;
+  flex-wrap: wrap;
 }
+
 h1.landing {
   margin: 0;
   padding-top: 200px;
@@ -11,63 +15,170 @@ h1.landing {
 
 div.welcoming,
 div.auth {
+  flex: 1;
   text-align: center;
-  width: 50%;
-  height: 90vh;
-}
-div.auth {
   position: relative;
-  float: right;
-  z-index: 1;
+  min-width: 300px;
 }
 
 div.welcoming {
-  top: 0;
-  height: 100vh;
-  position: fixed;
-  z-index: 2;
-  float: left;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  z-index: 0;
+  padding: 2rem;
+}
+
+div.auth {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 2rem;
+  font-size: 1.5rem;
+  font-weight: 600;
+  border-left: 4px solid #fff;
+  background-image: url("/src/assets/class.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Typewriter effect */
+.typewriter-container {
+  overflow: hidden;
+  white-space: nowrap;
+  font-size: 2rem;
+  width: 100%;
+  max-width: 600px;
+  position: absolute;
+  bottom: 30px;
+  animation: typing 4s steps(40, end) forwards;
+}
+
+.typewriter-container::after {
+  content: "";
+  display: inline-block;
+  width: 3px;
+  height: 2rem;
+  background-color: black;
+  margin-left: 2px;
+  animation: blink 0.75s step-end infinite;
+  animation-delay: 0.1s;
+}
+
+@keyframes typing {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+.typewriter-container.typed::after {
+  animation: hideCursor 0s ease-in 0s forwards;
+  opacity: 0;
+}
+
+@keyframes fadeToBlack {
+  to {
+    background-image: none;
+    color: black;
+  }
+}
+
+.colorful-text {
+  display: inline-block;
+  background-image: linear-gradient(
+    90deg,
+    red,
+    orange,
+    yellow,
+    green,
+    cyan,
+    blue,
+    violet
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  animation: fadeToBlack 0s ease-in 4s forwards;
 }
 
 section.view1,
 section.view2 {
-  height: auto;
-  position: relative;
-  margin: 70px 10px;
+  margin: 0 auto;
+  max-width: 600px;
+  background-color: #ffffffc0;
+  padding: 40px 30px;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  z-index: 1;
 }
+
 section.view1 {
-  margin: 150px 20px;
-  /* background-color: rgba(0, 0, 255, 0.274); */
-  background-color: transparent;
-  border: black 2px solid;
-  font-size: 40px;
-  left: 60px;
-  z-index: -1;
-}
-section.view2 {
-  z-index: -3;
-  border: rgba(0, 0, 255, 0.3) 1px solid;
-  background-color: transparent;
-  /* background-color: blue; */
-  /* color: aliceblue; */
-  height: auto;
-  margin-top: 100px;
+  font-size: 36px;
 }
 
 button.landingBtns {
-  padding: 12px 24px;
-  margin: 6px;
-  font-size: 1.2rem;
-  background: #655bfa;
-  color: rgba(255, 255, 255, 0.9);
-  border: gray 1px solid;
-  border-radius: 5px;
+  padding: 14px 28px;
+  margin: 8px;
+  font-size: 1.1rem;
+  background: #6366f1;
+  color: white;
+  border: none;
+  border-radius: 8px;
   cursor: pointer;
-  font-weight: bold;
-  transition: 0.3s ease-in-out;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
 }
 
 button.landingBtns:hover {
-  background: #1000f7;
-  color: white;
+  background: #4338ca;
+  transform: translateY(-2px);
+}
+
+/* Responsive Design */
+@media (max-width: 800px) {
+  div.landing {
+    flex-direction: column;
+    height: 100vh;
+  }
+
+  div.welcoming,
+  div.auth {
+    flex: none;
+    width: 80%;
+    border-left: none;
+    border-top: 2px solid #fff;
+    padding: 1.5rem;
+  }
+  div.auth {
+    background-image: none;
+  }
+  .typewriter-container {
+    font-size: 1rem;
+    width: 100%;
+  }
+
+  .typewriter-container {
+    position: relative;
+    bottom: 0;
+    margin-top: 1rem;
+  }
 }
