@@ -1,29 +1,11 @@
-import React, { useContext } from "react";
-import { WebSocketContext } from "../context/WebSocketProvider";
+import React from "react";
+
+import Requests from "../counsellors/components/request";
 
 export default function Test() {
-  const { messages } = useContext(WebSocketContext);
-
   return (
     <div>
-      <h1>Test Page</h1>
-      <h3>Received Messages:</h3>
-      <div>
-        {messages.length > 0 ? (
-          <ul>
-            {messages
-              .filter((msg) => msg.type === "studentReq") // ✅ Only studentReq messages
-              .map((msg, index) => (
-                <li key={index} style={{ color: "blue" }}>
-                  {" "}
-                  {msg.message}
-                </li>
-              ))}
-          </ul>
-        ) : (
-          <p>No messages received yet.</p>
-        )}
-      </div>
+      <Requests />
     </div>
   );
 }
