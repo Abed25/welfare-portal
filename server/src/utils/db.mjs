@@ -8,8 +8,13 @@ const dbUri = `mongodb+srv://${process.env.DB_USER}:${encodeURIComponent(
   process.env.DB_PASSWORD
 )}@${process.env.DB_CLUSTER}/${process.env.DB_NAME}`;
 
+// mongoose
+//   .connect(dbUri, {
+//     useNewUrlParser: true,
+//     useUnifiedTopology: true,
+//   })
 mongoose
-  .connect(dbUri, {
+  .connect("mongodb://localhost:27017/mydatabase", {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })

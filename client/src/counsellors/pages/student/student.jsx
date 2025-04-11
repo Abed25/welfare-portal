@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { WebSocketContext } from "../../../context/WebSocketProvider";
 import { useAuth } from "../../../context/AuthProvider";
+import { format } from "date-fns"; // Import date-fns for formatting timestamps
 
 export default function Student() {
   const { user } = useAuth();
@@ -35,6 +36,7 @@ export default function Student() {
       ...formData,
       userName: user.username,
       registeredEmail: user.email,
+      timestamp: new Date().toISOString(), // Adding timestamp
     };
 
     sendMessage({ sender: "student", type: "studentReq", ...updatedForm });
@@ -45,11 +47,15 @@ export default function Student() {
 
   const filteredMessages = requests
     .filter((req) => req.userName === user.username)
-    .flatMap((req) => req.messages);
+    .flatMap((req) =>
+      req.messages.map((m) => ({ text: m.text, timestamp: m.timestamp }))
+    );
 
   const filteredResponses = requests
     .filter((req) => req.userName === user.username)
-    .flatMap((req) => req.responses);
+    .flatMap((req) =>
+      req.responses.map((r) => ({ text: r.text, timestamp: r.timestamp }))
+    );
 
   const newStudentMessages = messages.filter(
     (msg) => msg.type === "studentReq" && msg.userName === user.username
@@ -59,18 +65,32 @@ export default function Student() {
     (msg) => msg.type === "CounsellorRes" && msg.to === user.username
   );
 
-  // Combine stored conversation
-  const conversation = [];
-  const maxLength = Math.max(filteredMessages.length, filteredResponses.length);
+  // Combine stored and real-time messages
+  const allMessages = [
+    ...filteredMessages.map((msg) => ({
+      sender: "student",
+      text: msg.text,
+      timestamp: msg.timestamp,
+    })),
+    ...filteredResponses.map((msg) => ({
+      sender: "counsellor",
+      text: msg.text,
+      timestamp: msg.timestamp,
+    })),
+    ...newStudentMessages.map((msg) => ({
+      sender: "student",
+      text: msg.message,
+      timestamp: msg.timestamp || new Date().toISOString(),
+    })),
+    ...newResponses.map((msg) => ({
+      sender: "counsellor",
+      text: msg.response,
+      timestamp: msg.timestamp || new Date().toISOString(),
+    })),
+  ];
 
-  for (let i = 0; i < maxLength; i++) {
-    if (filteredMessages[i]) {
-      conversation.push({ sender: "student", text: filteredMessages[i] });
-    }
-    if (filteredResponses[i]) {
-      conversation.push({ sender: "counsellor", text: filteredResponses[i] });
-    }
-  }
+  // Sort all messages by timestamp (ascending order)
+  allMessages.sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
 
   return (
     <div>
@@ -79,27 +99,13 @@ export default function Student() {
           <h2>Chat with Counsellor</h2>
         </div>
         <div className="chat-messages">
-          {/* Stored messages */}
-          {conversation.map((msg, index) => (
+          {/* Map through the sorted conversation */}
+          {allMessages.map((msg, index) => (
             <div key={index} className={`message ${msg.sender}`}>
               <p>{msg.text}</p>
-            </div>
-          ))}
-
-          {/* Real-time student messages (fade after refresh) */}
-          {newStudentMessages.map((msg, index) => (
-            <div
-              key={`realtime-student-${index}`}
-              className="message student new"
-            >
-              <p>{msg.message}</p>
-            </div>
-          ))}
-
-          {/* Real-time counsellor responses (fade after refresh) */}
-          {newResponses.map((msg, index) => (
-            <div key={`new-${index}`} className="message counsellor new">
-              <p>{msg.response}</p>
+              <small style={{ fontSize: "0.8rem", color: "gray" }}>
+                {format(new Date(msg.timestamp), "dd MMM yyyy, hh:mm a")}
+              </small>
             </div>
           ))}
         </div>
