@@ -4,13 +4,14 @@ import "../styles/student.css";
 import DynamicButton from "./button";
 import { toast } from "react-toastify";
 import { useAuth } from "../../context/AuthProvider";
+import { format } from "date-fns"; // Importing date-fns for formatting
 
 function Requests() {
-  const [requests, setRequests] = useState([]); // default to an empty array
+  const [requests, setRequests] = useState([]);
   const { messages, sendMessage } = useContext(WebSocketContext);
   const { user } = useAuth();
   const [formData, setFormData] = useState({ message: "" });
-  const [specifiedUser, setSpecifiedUser] = useState("student");
+  const [specifiedUser, setSpecifiedUser] = useState("");
   const [userID, setUserID] = useState("");
 
   useEffect(() => {
@@ -31,12 +32,18 @@ function Requests() {
       toast.error("Please type a message!");
       return;
     }
+    if (!specifiedUser) {
+      toast.warn("Please select a student!");
+      return;
+    }
+
     sendMessage({
       sender: "counsellor",
       type: "CounsellorRes",
       to: specifiedUser,
       from: user.username,
       response: formData.message,
+      timestamp: new Date().toISOString(),
     });
 
     fetch("http://localhost:5000/api/respond", {
@@ -52,19 +59,17 @@ function Requests() {
       })
       .catch((error) => console.error("Error sending response:", error));
 
-    toast.success("Message sent!");
     setFormData({ message: "" });
   };
 
-  const filteredMessages = requests
-    .filter((req) => req.userName === specifiedUser)
-    .flatMap((req) => req.messages);
+  // Extract messages and responses for the specified user
+  const selectedRequest = requests.find(
+    (req) => req.userName === specifiedUser
+  );
 
-  const filteredResponses = requests
-    .filter((req) => req.userName === specifiedUser)
-    .flatMap((req) => req.responses);
+  const storedMessages = selectedRequest?.messages || [];
+  const storedResponses = selectedRequest?.responses || [];
 
-  //This applies for websocket
   const newStudentMessages = messages.filter(
     (msg) => msg.type === "studentReq" && msg.userName === specifiedUser
   );
@@ -73,28 +78,25 @@ function Requests() {
     (msg) => msg.type === "CounsellorRes" && msg.to === specifiedUser
   );
 
-  // Combine stored conversation
-  // Combine stored conversation
+  // Build conversation array
   const conversation = [];
 
-  // Add stored messages
-  filteredMessages.forEach((msg) => {
+  storedMessages.forEach((msg) => {
     conversation.push({
       sender: "student",
-      text: msg,
+      text: msg.text,
       timestamp: msg.timestamp,
     });
   });
 
-  filteredResponses.forEach((res) => {
+  storedResponses.forEach((res) => {
     conversation.push({
       sender: "counsellor",
-      text: res,
+      text: res.text,
       timestamp: res.timestamp,
     });
   });
 
-  // Add live messages
   newStudentMessages.forEach((msg) => {
     conversation.push({
       sender: "student",
@@ -110,6 +112,8 @@ function Requests() {
       timestamp: msg.timestamp,
     });
   });
+
+  // Sort by timestamp
   conversation.sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
 
   return (
@@ -127,6 +131,7 @@ function Requests() {
                   setSpecifiedUser(request.userName);
                   setUserID(request._id);
                 }}
+                style={{ cursor: "pointer" }}
               >
                 {request.userName}
               </li>
@@ -134,11 +139,13 @@ function Requests() {
           </ul>
         )}
       </div>
+
       <div>
         <div className="chat-container">
           <div className="chat-header">
             <h2>Chat with {specifiedUser}</h2>
           </div>
+
           <div className="chat-messages">
             {conversation.map((item, index) => (
               <div
@@ -147,10 +154,13 @@ function Requests() {
                 style={{
                   color: item.sender === "counsellor" ? "blue" : "black",
                   alignSelf:
-                    item.sender === "counsellor" ? " flex-end" : "flex-start",
+                    item.sender === "counsellor" ? "flex-end" : "flex-start",
                 }}
               >
-                <strong>{item.sender}:</strong> {item.text}
+                <strong>{item.sender}:</strong> {item.text} <br />
+                <small style={{ fontSize: "0.8rem", color: "gray" }}>
+                  {format(new Date(item.timestamp), "dd MMM yyyy, hh:mm a")}
+                </small>
               </div>
             ))}
           </div>
