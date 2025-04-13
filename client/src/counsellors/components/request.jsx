@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
 import { WebSocketContext } from "../../context/WebSocketProvider";
 import "../styles/student.css";
+import "../styles/counsellor.css";
 import DynamicButton from "./button";
 import { toast } from "react-toastify";
 import { useAuth } from "../../context/AuthProvider";
@@ -13,6 +14,7 @@ function Requests() {
   const [formData, setFormData] = useState({ message: "" });
   const [specifiedUser, setSpecifiedUser] = useState("");
   const [userID, setUserID] = useState("");
+  const [viewList, setViewList] = useState(false);
 
   useEffect(() => {
     fetch("http://localhost:5000/api/submit-form")
@@ -118,27 +120,48 @@ function Requests() {
 
   return (
     <div>
-      <div>
-        <h2>All Requests</h2>
-        {requests.length === 0 ? (
-          <p>No requests found.</p>
-        ) : (
-          <ul>
-            {requests.map((request, index) => (
-              <li
-                key={index}
-                onClick={() => {
-                  setSpecifiedUser(request.userName);
-                  setUserID(request._id);
-                }}
-                style={{ cursor: "pointer" }}
-              >
-                {request.userName}
-              </li>
-            ))}
-          </ul>
-        )}
-      </div>
+      {specifiedUser && (
+        <label htmlFor="name" style={{ fontSize: "20px", padding: "4px 8px" }}>
+          Communication channel with{" "}
+          <span style={{ color: "blue" }}>
+            <strong>{specifiedUser}</strong>
+          </span>
+        </label>
+      )}
+
+      <DynamicButton
+        name="Request"
+        style={{ position: "absolute", right: "40px" }}
+        notify={true}
+        value={requests.length}
+        click={() => {
+          setViewList(!viewList);
+        }}
+      />
+      {viewList && (
+        <div className="listRequests">
+          <h2>All Requests</h2>
+          {requests.length === 0 ? (
+            <p>No requests found.</p>
+          ) : (
+            <ul>
+              {requests.map((request, index) => (
+                <li
+                  key={index}
+                  onClick={() => {
+                    setSpecifiedUser(request.userName);
+                    setUserID(request._id);
+                    setViewList(!viewList);
+                  }}
+                  style={{ cursor: "pointer" }}
+                >
+                  {request.userName}
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+      )}
 
       <div>
         <div className="chat-container">
