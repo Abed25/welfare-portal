@@ -15,6 +15,12 @@ function Requests() {
   const [specifiedUser, setSpecifiedUser] = useState("");
   const [userID, setUserID] = useState("");
   const [viewList, setViewList] = useState(false);
+  const [doneTyping, setDoneTyping] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setDoneTyping(true), 4000);
+    return () => clearTimeout(timer);
+  }, []);
 
   useEffect(() => {
     fetch("http://localhost:5000/api/submit-form")
@@ -128,47 +134,58 @@ function Requests() {
           </span>
         </label>
       )}
-      <DynamicButton
-        name={viewList ? "Close" : "Request"}
-        style={{ position: "absolute", right: viewList ? "0px" : "40px" }}
-        notify={!viewList && true}
-        value={requests.length}
-        click={() => {
-          setViewList(!viewList);
-        }}
-      />
-      {viewList && (
-        <div className="listRequests">
-          <h4>All Requests</h4>
-          {requests.length === 0 ? (
-            <p>No requests found.</p>
-          ) : (
-            <ul>
-              {requests.map((request, index) => (
-                <li
-                  key={index}
-                  onClick={() => {
-                    setSpecifiedUser(request.userName);
-                    setUserID(request._id);
-                    setViewList(!viewList);
-                  }}
-                  style={{
-                    cursor: "pointer",
-                    backgroundColor:
-                      specifiedUser === request.userName && "black",
-                  }}
-                >
-                  {request.userName}
-                </li>
-              ))}
-            </ul>
-          )}
-        </div>
-      )}
+
       <div>
         <div className="chat-container">
           <div className="chat-header">
-            <h2>Chat with {specifiedUser}</h2>
+            <h2>
+              Chat with{" "}
+              {!specifiedUser ? (
+                "____________"
+              ) : (
+                <span style={{ textDecoration: "underline" }}>
+                  <strong>{specifiedUser}</strong>
+                </span>
+              )}
+            </h2>
+            <DynamicButton
+              name={viewList ? "Close" : "Request"}
+              style={{ position: "absolute", right: "14px", top: "24px" }}
+              //style={{ position: "absolute", right: viewList ? "0px" : "40px" }}
+              notify={!viewList && true}
+              value={requests.length}
+              click={() => {
+                setViewList(!viewList);
+              }}
+            />
+            {viewList && (
+              <div className="listRequests">
+                <h4>All Requests</h4>
+                {requests.length === 0 ? (
+                  <p>No requests found.</p>
+                ) : (
+                  <ul>
+                    {requests.map((request, index) => (
+                      <li
+                        key={index}
+                        onClick={() => {
+                          setSpecifiedUser(request.userName);
+                          setUserID(request._id);
+                          setViewList(!viewList);
+                        }}
+                        style={{
+                          cursor: "pointer",
+                          backgroundColor:
+                            specifiedUser === request.userName && "black",
+                        }}
+                      >
+                        {request.userName}
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+            )}
           </div>
 
           <div className="chat-messages">
@@ -188,6 +205,21 @@ function Requests() {
                 </small>
               </div>
             ))}
+
+            {!specifiedUser && (
+              <div
+                style={{
+                  position: "relative",
+                  top: "20px",
+                  fontSize: "24px",
+                }}
+                className={`typewriter-container ${doneTyping ? "typed" : ""}`}
+              >
+                <span className="colorful-text" style={{ color: "blue" }}>
+                  Select a student to make communication!!
+                </span>
+              </div>
+            )}
           </div>
 
           <form onSubmit={handleSubmit} className="chat-form">
@@ -201,10 +233,12 @@ function Requests() {
           </form>
         </div>
       </div>
-      <div>
-        <h2>Student background Information</h2>
-        <h2>{specifiedUser}</h2>
-      </div>
+      {specifiedUser && (
+        <div>
+          <h2>Student background Information</h2>
+          <h2>{specifiedUser}</h2>
+        </div>
+      )}
     </div>
   );
 }
