@@ -1,55 +1,27 @@
-div.containerCounsellor {
-  position: relative;
-  width: 100%;
-  /* border: red 4px dotted;*/
-}
-div.studentRequestV1,
-div.studentRequestV2 {
-  border: black solid 1px;
-  width: 80%;
-  padding: 10px;
-  margin: 10px auto;
-  box-sizing: border-box;
-  padding-right: 30px;
-  border-radius: 10px;
-  overflow: hidden;
-  position: relative;
-}
-div.studentRequestV1 {
-  height: 150px;
-}
-div.studentRequestV2 {
-  height: auto;
-}
-div.studentRequestV1 .dropDown,
-div.studentRequestV2 .dropDown {
+.listRequests {
+  /* border: blue 1px solid; */
   position: absolute;
-  right: 10px; /* Keeps button slightly away from the right edge */
-  top: 50%;
-  transform: translateY(-50%);
-  transition: 0.3s ease;
-  cursor: pointer;
-  font-size: 30px;
-  color: #007bff;
-  transition: 0.3s ease;
-}
-div.respondContainer {
+  background-color: #4a91e2;
+  top: 60px;
+  right: 0;
   height: auto;
-  padding: 10px 4px;
-  width: 100%;
-  /* border: red 1px dotted; */
+  width: 180px;
+  padding: 12px 0;
+  z-index: 1;
+  border: black solid 0.5px;
+  text-align: center;
 }
-form.response p {
-  font-size: large;
+.listRequests h4 {
+  color: blue;
 }
-form.response textarea {
-  width: 92%;
-  height: 200px;
-  padding: 2px;
-  font-size: 16px;
+.listRequests ul,
+.listRequests h4 {
+  margin: 0;
+  padding: 0;
 }
-@media (min-width: 700px) {
-  div.studentRequest {
-    width: 60%;
-  }
+.listRequests li {
+  list-style: none;
+  color: white;
+  font-weight: 700;
+  border: 1px black dotted;
 }
