@@ -128,11 +128,10 @@ function Requests() {
           </span>
         </label>
       )}
-
       <DynamicButton
-        name="Request"
-        style={{ position: "absolute", right: "40px" }}
-        notify={true}
+        name={viewList ? "Close" : "Request"}
+        style={{ position: "absolute", right: viewList ? "0px" : "40px" }}
+        notify={!viewList && true}
         value={requests.length}
         click={() => {
           setViewList(!viewList);
@@ -140,7 +139,7 @@ function Requests() {
       />
       {viewList && (
         <div className="listRequests">
-          <h2>All Requests</h2>
+          <h4>All Requests</h4>
           {requests.length === 0 ? (
             <p>No requests found.</p>
           ) : (
@@ -153,7 +152,11 @@ function Requests() {
                     setUserID(request._id);
                     setViewList(!viewList);
                   }}
-                  style={{ cursor: "pointer" }}
+                  style={{
+                    cursor: "pointer",
+                    backgroundColor:
+                      specifiedUser === request.userName && "black",
+                  }}
                 >
                   {request.userName}
                 </li>
@@ -162,7 +165,6 @@ function Requests() {
           )}
         </div>
       )}
-
       <div>
         <div className="chat-container">
           <div className="chat-header">
@@ -198,6 +200,10 @@ function Requests() {
             <DynamicButton name="Send" type="submit" />
           </form>
         </div>
+      </div>
+      <div>
+        <h2>Student background Information</h2>
+        <h2>{specifiedUser}</h2>
       </div>
     </div>
   );

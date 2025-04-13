@@ -5,15 +5,19 @@
   top: 125px;
   right: 0;
   height: auto;
-  width: auto;
-  padding: 12px;
+  width: 180px;
+  padding: 12px 0;
   z-index: 1;
   border: black solid 0.5px;
+  text-align: center;
 }
-.listRequests ul {
+.listRequests h4 {
+  color: blue;
+}
+.listRequests ul,
+.listRequests h4 {
   margin: 0;
   padding: 0;
-  text-align: center;
 }
 .listRequests li {
   list-style: none;
