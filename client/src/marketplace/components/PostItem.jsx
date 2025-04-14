@@ -8,7 +8,6 @@ const PostItem = () => {
     description: "",
     price: "",
     category: "",
-    posted_by: 1, // Hardcoded student ID
     image: null,
   });
 
