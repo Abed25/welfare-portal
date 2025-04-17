@@ -16,16 +16,16 @@ export default function SubFooter() {
           <h4>Quick Links</h4>
           <ul>
             <li>
-              <a href="/counseling">Counseling</a>
+              <a href="/counselling">Counseling</a>
             </li>
             <li>
-              <a href="/accommodation">Accommodation</a>
+              <a href="/Forum">Forum</a>
             </li>
             <li>
-              <a href="/bursary">Bursary Support</a>
+              <a href="/todo">Todo</a>
             </li>
             <li>
-              <a href="/health">Health Services</a>
+              <a href="/marketplace">Marketplace</a>
             </li>
           </ul>
         </div>
