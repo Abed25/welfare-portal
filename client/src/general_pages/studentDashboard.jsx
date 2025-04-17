@@ -32,10 +32,10 @@ const StudentDashboard = () => {
       </div>
 
       <div className="dashboard-cards">
-        <NavLink to="/financial-assistance" className="dashboard-card">
+        {/* <NavLink to="/financial-assistance" className="dashboard-card">
           Financial Assistance
-        </NavLink>
-        <NavLink to="/counseling" className="dashboard-card">
+        </NavLink> */}
+        <NavLink to="/counselling" className="dashboard-card">
           Counseling & Mental Health
         </NavLink>
         <NavLink to="/emergency-support" className="dashboard-card">
