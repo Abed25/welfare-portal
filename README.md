@@ -20,14 +20,14 @@ To improve efficiency, transparency and accessibility in handling welfare-relate
 - 🔄 Status Tracking & Notifications
 - 📄 Document Upload & Verification
 - 📊 Admin Dashboard for Review & Approval
-- 📬 In-platform Communication
+- 📬 In-platform Communication - Chats and forums
 
 ## 🧰 Technologies Used
 
 - **Frontend:** React.js + CSS
-- **Backend:** Express.js (Node.js)
+- **Backend:** Express.js (Node.js), Firebase(Authentificatiom)
 - **Database:** MongoDB, firestore
 - **Version Control:** Git & GitHub
-- **Hosting:** Vercel (Frontend), Railway (backend) and MongoDB atlas
+- **Hosting:** Vercel (Frontend), Railway (backend) and MongoDB atlas(database)
 
 
