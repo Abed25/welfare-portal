@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import "../styles/postitem.css";
-
+const api = import.meta.env.VITE_API_BASE_URL;
 const PostItem = () => {
   const [formData, setFormData] = useState({
     title: "",
@@ -25,7 +25,7 @@ const PostItem = () => {
     Object.keys(formData).forEach((key) => data.append(key, formData[key]));
 
     try {
-      await axios.post("http://localhost:5000/api/listings", data);
+      await axios.post(`${api}/listings`, data);
       alert("Item posted!");
     } catch (err) {
       console.error(err);

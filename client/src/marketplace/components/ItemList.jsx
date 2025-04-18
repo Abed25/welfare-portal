@@ -2,12 +2,13 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "../styles/itemList.css";
 
+const api = import.meta.env.VITE_API_BASE_URL;
 const ItemList = () => {
   const [items, setItems] = useState([]);
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/api/listings")
+      .get(`${api}/listings`)
       .then((res) => setItems(res.data))
       .catch((err) => console.error(err));
   }, []);

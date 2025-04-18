@@ -11,7 +11,7 @@ export default function Nav() {
   const [userFunctions, setUserFunctions] = useState([]);
 
   const functionalities = {
-    student: ["Counselling", "Marketplace", "ToDO", "Claim points"],
+    student: ["Counselling", "Marketplace", "ToDO", "Forum", "Claim points"],
     counsellor: ["Counselling", "Feeds history", "ToDO", "Marketplace"],
     schoolLinks: [
       { label: "Student Portal", path: "http://portal.mksu.ac.ke/" },
