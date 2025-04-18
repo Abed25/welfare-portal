@@ -7,6 +7,8 @@ import { toast } from "react-toastify";
 import { useAuth } from "../../context/AuthProvider";
 import { format } from "date-fns"; // Importing date-fns for formatting
 
+const api = import.meta.env.VITE_API_BASE_URL;
+
 function Requests() {
   const [requests, setRequests] = useState([]);
   const { messages, sendMessage } = useContext(WebSocketContext);
@@ -23,7 +25,7 @@ function Requests() {
   }, []);
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/submit-form")
+    fetch(`${api}/submit-form`)
       .then((res) => res.json())
       .then((data) => setRequests(data))
       .catch((error) => console.error("Error fetching data:", error));
@@ -54,7 +56,7 @@ function Requests() {
       timestamp: new Date().toISOString(),
     });
 
-    fetch("http://localhost:5000/api/respond", {
+    fetch(`${api}/respond`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

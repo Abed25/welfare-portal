@@ -7,6 +7,8 @@ import { WebSocketContext } from "../../../context/WebSocketProvider";
 import { useAuth } from "../../../context/AuthProvider";
 import { format } from "date-fns"; // Import date-fns for formatting timestamps
 
+const api = import.meta.env.VITE_API_BASE_URL;
+
 export default function Student() {
   const { user } = useAuth();
   const { sendMessage, messages } = useContext(WebSocketContext);
@@ -14,7 +16,7 @@ export default function Student() {
   const [requests, setRequests] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/submit-form")
+    fetch(`${api}/submit-form`)
       .then((res) => res.json())
       .then((data) => setRequests(data))
       .catch((error) => console.error("Error fetching data:", error));
