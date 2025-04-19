@@ -3,6 +3,7 @@ import { NavLink } from "react-router-dom";
 import SubHeader from "../general_components/SubHeader";
 import "../general_styles/studentDash.css";
 import { useAuth } from "../context/AuthProvider";
+import ImageUploader from "../general_components/ImageUploader";
 
 const StudentDashboard = () => {
   const { user } = useAuth();
@@ -13,8 +14,9 @@ const StudentDashboard = () => {
     <div className="Dashboard">
       <SubHeader />
       <div className="profile">
-        <div className="ImageContainer">
-          <img></img>
+        {/* Considered importing image container */}
+        <div className="outterImageContainer">
+          <ImageUploader />
         </div>
         <div className="AboutProfile">
           <h2 className="dashboard-heading">Welcome back, {user.username}!</h2>
