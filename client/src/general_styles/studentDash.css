@@ -26,7 +26,7 @@ div.outterImageContainer {
 }
 
 div.ImageContainer {
-  /* border: green solid 1px; */
+  border: #4a90e2 solid 1px;
   width: 180px;
   height: 180px;
   border-radius: 100px;
