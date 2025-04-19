@@ -3,6 +3,8 @@
   max-width: 1200px;
   margin: auto;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  width: auto;
+  float: left;
 }
 
 .ItemsView h3 {
@@ -23,12 +25,12 @@
   background: white;
   border-radius: 12px;
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-  padding: 1.5rem;
+  /* padding: 1.5rem; */
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  width: 40%;
+  width: 44%;
   float: left;
 }
 
