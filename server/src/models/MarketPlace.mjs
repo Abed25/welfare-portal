@@ -1,15 +1,29 @@
 import mongoose from "mongoose";
 
-const { Schema, model } = mongoose;
-
-const listingSchema = new Schema({
+const itemSchema = new mongoose.Schema({
   title: String,
   description: String,
   price: Number,
   category: String,
-  image: String,
-  posted_by: mongoose.Schema.Types.ObjectId, // Just an ID ref
+  image: {
+    data: Buffer,
+    contentType: String,
+  },
+  postedAt: { type: Date, default: Date.now },
+});
+
+const userListingSchema = new mongoose.Schema({
+  userId: String,
+  name: {
+    type: String,
+    required: true,
+  },
+  registeredEmail: {
+    type: String,
+    required: true,
+  },
+  listings: [itemSchema],
   createdAt: { type: Date, default: Date.now },
 });
 
-export const Listing = model("Listing", listingSchema);
+export const UserListing = mongoose.model("UserListing", userListingSchema);

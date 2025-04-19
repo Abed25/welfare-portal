@@ -1,8 +1,14 @@
 import React, { useState } from "react";
 import axios from "axios";
 import "../styles/postitem.css";
+import { useAuth } from "../../context/AuthProvider";
+import { toast } from "react-toastify";
+
 const api = import.meta.env.VITE_API_BASE_URL;
+
 const PostItem = () => {
+  const { user } = useAuth();
+
   const [formData, setFormData] = useState({
     title: "",
     description: "",
@@ -12,24 +18,49 @@ const PostItem = () => {
   });
 
   const handleChange = (e) => {
-    if (e.target.name === "image") {
-      setFormData({ ...formData, image: e.target.files[0] });
+    const { name, value, files } = e.target;
+
+    if (name === "image") {
+      setFormData((prev) => ({ ...prev, image: files[0] }));
     } else {
-      setFormData({ ...formData, [e.target.name]: e.target.value });
+      setFormData((prev) => ({ ...prev, [name]: value }));
     }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!user) {
+      toast.warn("User not authenticated");
+      return;
+    }
+
     const data = new FormData();
-    Object.keys(formData).forEach((key) => data.append(key, formData[key]));
+
+    // ✅ Append form fields
+    Object.entries(formData).forEach(([key, value]) => {
+      if (value !== null && key !== "image") {
+        data.append(key, value);
+      }
+    });
+
+    // ✅ Append image if present
+    if (formData.image) {
+      data.append("image", formData.image);
+      data.append("imageName", formData.image.name); // optional: for tracking filename
+    }
+
+    // ✅ Explicitly append user info like in ImageUploader
+    data.append("userId", user.uid);
+    data.append("name", user.username);
+    data.append("registeredEmail", user.email);
 
     try {
       await axios.post(`${api}/listings`, data);
-      alert("Item posted!");
+      toast.success("Item posted!");
     } catch (err) {
-      console.error(err);
-      alert("Failed to post");
+      console.error("Failed to post item", err);
+      toast.error("Failed to post");
     }
   };
 
@@ -55,7 +86,12 @@ const PostItem = () => {
         onChange={handleChange}
         required
       />
-      <input name="category" placeholder="Category" onChange={handleChange} />
+      <input
+        name="category"
+        placeholder="Category"
+        onChange={handleChange}
+        required
+      />
       <input
         name="image"
         type="file"

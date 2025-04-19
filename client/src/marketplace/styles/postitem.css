@@ -28,7 +28,6 @@
   box-shadow: 0 0 0 2px rgba(66, 165, 245, 0.3);
   outline: none;
 }
-
 .poster textarea {
   min-height: 100px;
   resize: vertical;
