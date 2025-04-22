@@ -1,16 +1,9 @@
 import React from "react";
 
-import Requests from "../counsellors/components/request";
-import Forum from "../forum/Forum";
-import NewPostForm from "../forum/NewPostForm";
-import ForumPost from "../forum/ForumPost";
-
 export default function Test() {
   return (
     <div>
-      <Forum />
-      <ForumPost />
-      <NewPostForm />
+      <ImageUploader />
     </div>
   );
 }
