@@ -8,7 +8,7 @@ const dbUri = `mongodb+srv://${process.env.DB_USER}:${encodeURIComponent(
   process.env.DB_PASSWORD
 )}@${process.env.DB_CLUSTER}/${process.env.DB_NAME}`;
 
- mongoose
+mongoose
   .connect(dbUri, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
