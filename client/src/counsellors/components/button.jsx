@@ -2,7 +2,7 @@ import React from "react";
 import "../styles/button.css";
 
 export default function DynamicButton(props) {
-  const { style, name, click, notify, value, disable } = props;
+  const { style, name, click, notify, value, disable, title } = props;
   const badgeStyle = {
     position: "absolute",
     top: "-20px",
@@ -26,6 +26,7 @@ export default function DynamicButton(props) {
       style={style}
       type="type"
       disabled={disable}
+      title={title}
     >
       {name}
       {notify && <span style={badgeStyle}>{value}</span>}
