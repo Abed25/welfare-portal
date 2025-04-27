@@ -63,3 +63,95 @@
   border: none;
   cursor: pointer;
 }
+
+/* Forum.css */
+
+/* New post container form */
+.new-post-form {
+  background-color: #e6f0ff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Title styling */
+.new-post-form h2 {
+  text-align: center;
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* Input and textarea styling */
+.new-post-form input,
+.new-post-form textarea,
+.new-post-form select {
+  width: 96%;
+  padding: 12px;
+  margin-bottom: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+  color: #333;
+}
+
+.new-post-form input:focus,
+.new-post-form textarea:focus,
+.new-post-form select:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+/* Textarea specific styling */
+.new-post-form textarea {
+  resize: vertical;
+  height: 150px;
+}
+
+/* Category input for "Other" category */
+.new-post-form input[type="text"]:not(:focus) {
+  font-style: italic;
+  color: #888;
+}
+
+/* Button styling */
+.new-post-form button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 4px;
+  width: 100%;
+  transition: background-color 0.3s;
+}
+
+.new-post-form button:hover {
+  background-color: #075cb6;
+}
+
+/* Adjustments for small screens */
+@media (max-width: 480px) {
+  .new-post-form {
+    padding: 15px;
+  }
+
+  .new-post-form h2 {
+    font-size: 1.3rem;
+  }
+
+  .new-post-form input,
+  .new-post-form textarea,
+  .new-post-form select {
+    font-size: 0.9rem;
+  }
+
+  .new-post-form button {
+    font-size: 0.9rem;
+  }
+}
+
+/* ......End of new post Container */
