@@ -15,9 +15,11 @@ const ForumPost = () => {
     fetchPost();
   }, []);
 
+  const api = import.meta.env.VITE_API_BASE_URL;
+
   const fetchPost = async () => {
     try {
-      const res = await axios.get(`http://localhost:5000/api/forum/${id}`);
+      const res = await axios.get(`${api}/forum/${id}`);
       setPost(res.data);
     } catch (err) {
       console.error("Failed to fetch post", err);
@@ -30,7 +32,7 @@ const ForumPost = () => {
     if (!replyContent.trim()) return;
 
     try {
-      await axios.post(`http://localhost:5000/api/forum/${id}/reply`, {
+      await axios.post(`${api}/forum/${id}/reply`, {
         content: replyContent,
         author: user.username,
       });

@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../style/Forum.css";
 
+const api = import.meta.env.VITE_API_BASE_URL;
+
 const Forum = () => {
   const navigate = useNavigate();
   const [posts, setPosts] = useState([]);
@@ -14,7 +16,7 @@ const Forum = () => {
 
   const fetchPosts = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/forum");
+      const res = await axios.get(`${api}/forum`);
       if (Array.isArray(res.data)) {
         setPosts(res.data);
       } else {

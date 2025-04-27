@@ -3,6 +3,8 @@ import "../style/Forum.css";
 import { useAuth } from "../../context/AuthProvider";
 import { toast } from "react-toastify";
 
+const api = import.meta.env.VITE_API_BASE_URL;
+
 const NewPostForm = () => {
   const { user } = useAuth();
 
@@ -22,7 +24,7 @@ const NewPostForm = () => {
     };
 
     try {
-      const response = await fetch("http://localhost:5000/api/forum", {
+      const response = await fetch(`${api}/forum`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
