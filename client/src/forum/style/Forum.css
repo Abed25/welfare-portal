@@ -14,7 +14,8 @@
 }
 
 .forum-posts .forum-post-preview {
-  border: 1px solid #ccc;
+  border: 1px solid #007bff50;
+  background-color: #e6f0ff;
   padding: 1rem;
   margin-bottom: 1rem;
   border-radius: 5px;
@@ -22,7 +23,7 @@
 
 .view-post-btn {
   margin-top: 0.5rem;
-  background-color: #28a745;
+  background-color: #007bff;
   color: white;
   border: none;
   padding: 0.4rem 0.8rem;

@@ -2,12 +2,14 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import "../style/Forum.css";
+import { useAuth } from "../../context/AuthProvider";
 
 const ForumPost = () => {
   const { id } = useParams();
   const [post, setPost] = useState(null);
   const [replyContent, setReplyContent] = useState("");
   const [error, setError] = useState("");
+  const { user } = useAuth();
 
   useEffect(() => {
     fetchPost();
@@ -15,7 +17,7 @@ const ForumPost = () => {
 
   const fetchPost = async () => {
     try {
-      const res = await axios.get(`/api/forum/${id}`);
+      const res = await axios.get(`http://localhost:5000/api/forum/${id}`);
       setPost(res.data);
     } catch (err) {
       console.error("Failed to fetch post", err);
@@ -28,9 +30,9 @@ const ForumPost = () => {
     if (!replyContent.trim()) return;
 
     try {
-      await axios.post(`/api/forum/${id}/reply`, {
+      await axios.post(`http://localhost:5000/api/forum/${id}/reply`, {
         content: replyContent,
-        author: "Anonymous", // Replace with logged-in user if available
+        author: user.username,
       });
       setReplyContent("");
       fetchPost(); // Refresh post with new reply
