@@ -1,12 +1,10 @@
-/* StudentDashboard.css */
+/* studentDash.css */
+
 .Dashboard {
-  text-align: center;
-  padding: 20px;
-  font-family: Arial, sans-serif;
-  /* border: red 1px dotted; */
-  box-sizing: border-box;
-  width: 100%;
-  object-fit: cover;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(to bottom right, #f0f4f8, #e2e8f0);
+  padding: 2rem;
+  color: #2d3748;
 }
 div.profile {
   /* border: red 1px solid; */
@@ -64,18 +62,20 @@ div.outterImageContainer input {
   cursor: pointer;
 }
 
+.AboutProfile {
+  flex-grow: 1;
+}
+
 .dashboard-heading {
-  color: #4a90e2;
-  font-size: 24px;
-  margin-bottom: 10px;
+  font-size: 1.8rem;
+  color: #2c5282;
+  margin: 0;
 }
 
 .dashboard-intro {
-  font-size: 16px;
-  color: #555;
-  margin-bottom: 20px;
+  font-size: 1rem;
+  color: #4a5568;
 }
-
 .welcome-section {
   clear: both;
   object-fit: cover;
@@ -85,27 +85,44 @@ div.outterImageContainer input {
   margin-bottom: 20px;
 }
 
+.welcome-section h2,
+.announcements h2,
+.welfare-status h2,
+.support-section h2 {
+  font-size: 1.5rem;
+  margin-top: 2rem;
+  color: #2b6cb0;
+}
+
 .dashboard-cards {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 15px;
-  margin-bottom: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.2rem;
+  margin-top: 1.5rem;
 }
 
 .dashboard-card {
-  background: #4a90e2;
-  color: #fff;
-  padding: 12px 20px;
+  background: #ffffff;
+  border-left: 5px solid #805ad5;
+  padding: 1rem 1.2rem;
+  border-radius: 12px;
   text-decoration: none;
-  border-radius: 5px;
-  transition: 0.3s ease-in-out;
+  color: #2d3748;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.07);
+  transition: all 0.3s ease-in-out;
 }
 
 .dashboard-card:hover {
-  background: #357abd;
+  transform: scale(1.03);
+  background-color: #f7fafc;
 }
 
+.announcements ul,
+.welfare-status ul {
+  list-style-type: disc;
+  margin-left: 1.5rem;
+  color: #4a5568;
+}
 .announcements {
   background: #f9f9f9;
   padding: 15px;
@@ -135,6 +152,9 @@ div.outterImageContainer input {
   border-left: 4px solid #4a90e2;
 }
 
+.welfare-status b {
+  color: #2c5282;
+}
 .welfare-status {
   /* border: red 1px solid; */
   background: #eef5ff;
@@ -164,15 +184,13 @@ div.outterImageContainer input {
   border-left: 4px solid #357abd;
 }
 
-.support-section {
-  margin-top: 20px;
-}
-
 .support-link {
-  color: #4a90e2;
+  display: inline-block;
+  margin-right: 1rem;
+  margin-top: 0.5rem;
   text-decoration: none;
-  margin: 0 10px;
-  font-weight: bold;
+  color: #4c51bf;
+  font-weight: 500;
 }
 
 .support-link:hover {
@@ -180,26 +198,40 @@ div.outterImageContainer input {
 }
 
 .search-bar {
-  margin: 20px auto;
-  width: 80%;
-  padding: 10px;
-  border: 1px solid #4a90e2;
-  border-radius: 5px;
+  margin-top: 2rem;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  border: 1px solid #cbd5e0;
+  font-size: 1rem;
 }
 
 .dark-mode-toggle {
-  margin-top: 20px;
-  cursor: pointer;
-  background: #4a90e2;
-  color: #fff;
-  padding: 8px 16px;
+  margin-top: 1rem;
+  padding: 0.5rem 1.2rem;
+  background-color: #4a5568;
+  color: #ffffff;
   border: none;
-  border-radius: 5px;
-  transition: 0.3s;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.2s ease-in-out;
 }
 
 .dark-mode-toggle:hover {
-  background: #357abd;
+  background-color: #2d3748;
+}
+
+/* Responsive tweaks */
+@media (max-width: 768px) {
+  .profile {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .dashboard-cards {
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  }
 }
 
 @media (max-width: 550px) {
