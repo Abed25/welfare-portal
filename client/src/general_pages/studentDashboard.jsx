@@ -29,7 +29,8 @@ const StudentDashboard = () => {
       <div className="welcome-section">
         <h2>Welfare Overview</h2>
         <p>
-          Track your welfare requests, financial aid, and mental health support.
+          Track your welfare requests, new marketplace features and manage day
+          activities.
         </p>
       </div>
 
@@ -47,7 +48,13 @@ const StudentDashboard = () => {
           Student Marketplace
         </NavLink>
         <NavLink to="/claim-points" className="dashboard-card">
-          Claim Points / Benefits
+          Claim Points / Gain streaks
+        </NavLink>
+        <NavLink to="/forum" className="dashboard-card">
+          Forum
+        </NavLink>
+        <NavLink to="/todo" className="dashboard-card">
+          Manage Day activities
         </NavLink>
       </div>
 
