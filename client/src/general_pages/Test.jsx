@@ -1,9 +1,11 @@
 import React from "react";
+import LoadingSpinner from "../general_components/spinner";
 
 export default function Test() {
   return (
     <div>
-      <ImageUploader />
+      {/* <ImageUploader /> */}
+      <LoadingSpinner />
     </div>
   );
 }

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "../styles/itemList.css";
+import LoadingSpinner from "../../general_components/spinner";
 
 const api = import.meta.env.VITE_API_BASE_URL;
 
@@ -26,7 +27,7 @@ const ItemList = () => {
   if (loading)
     return (
       <div className="ItemsView">
-        <p>Loading items...</p>
+        <LoadingSpinner />
       </div>
     );
   if (error)
