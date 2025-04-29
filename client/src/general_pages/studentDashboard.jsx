@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import SubHeader from "../general_components/SubHeader";
+import SubFooter from "../general_components/SubFooter";
 import "../general_styles/studentDash.css";
 import { useAuth } from "../context/AuthProvider";
 import ImageUploader from "../general_components/ImageUploader";
@@ -103,6 +104,7 @@ const StudentDashboard = () => {
       <button onClick={toggleDarkMode} className="dark-mode-toggle">
         Toggle Dark Mode
       </button>
+      <SubFooter />
     </div>
   );
 };
